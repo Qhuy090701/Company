@@ -16,21 +16,6 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    private void SortChildObjectsByXPosition()
-    {
-        // Sort child objects by x position
-        for (int i = 0; i < parent.transform.childCount - 1; i++)
-        {
-            for (int j = i + 1; j < parent.transform.childCount; j++)
-            {
-                if (parent.transform.GetChild(j).position.x < parent.transform.GetChild(i).position.x)
-                {
-                    parent.transform.GetChild(j).SetSiblingIndex(i);
-                }
-            }
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag(Constant.TAG_NUMBER))
@@ -63,9 +48,6 @@ public class PlayerControler : MonoBehaviour
                 {
                     mergedObj.transform.position = new Vector3(merge.transform.position.x - distance, merge.transform.position.y, merge.transform.position.z);
                 }
-
-                // Sort child objects by x position
-                SortChildObjectsByXPosition();
             }
 
         }
