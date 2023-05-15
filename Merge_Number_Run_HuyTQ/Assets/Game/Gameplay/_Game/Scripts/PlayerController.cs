@@ -137,15 +137,15 @@ public class PlayerController : MonoBehaviour
                 Destroy(collision.gameObject);
 
                 // Move the merged object to the correct position next to the merge object
-                //float distance = Mathf.Abs(merge.transform.position.x - mergedObj.transform.position.x);
-                //if (mergedObj.transform.position.x > merge.transform.position.x)
-                //{
-                //    mergedObj.transform.position = new Vector3(merge.transform.position.x + distance, merge.transform.position.y, merge.transform.position.z);
-                //}
-                //else if (mergedObj.transform.position.x < merge.transform.position.x)
-                //{
-                //    mergedObj.transform.position = new Vector3(merge.transform.position.x - distance, merge.transform.position.y, merge.transform.position.z);
-                //}
+                float distance = Mathf.Abs(merge.transform.position.x - mergedObj.transform.position.x);
+                if (mergedObj.transform.position.x > merge.transform.position.x)
+                {
+                    mergedObj.transform.position = new Vector3(merge.transform.position.x + distance, merge.transform.position.y, merge.transform.position.z);
+                }
+                else if (mergedObj.transform.position.x < merge.transform.position.x)
+                {
+                    mergedObj.transform.position = new Vector3(merge.transform.position.x - distance, merge.transform.position.y, merge.transform.position.z);
+                }
 
                 //change tag player
                 mergedObj.gameObject.tag = Constant.TAG_PLAYER;
