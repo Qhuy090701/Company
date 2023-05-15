@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform attackPoint;
 
-    public PlayerState currentState;
+    private PlayerState currentState;
 
     private float lastShotTime;
     private bool hasJumped = false;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public enum PlayerState
+    private enum PlayerState
     {
         Idle,
         Moving,
