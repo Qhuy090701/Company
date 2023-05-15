@@ -20,11 +20,10 @@ public class Bullets : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag(Constant.TAG_TRAP))
-        //{
-        //    ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
-        //}
-        //ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
+        if (other.CompareTag(Constant.TAG_TRAP))
+        {
+            ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
+        }
         if (other.CompareTag(Constant.TAG_COLUMN))
         {
             Debug.Log("Va cham");

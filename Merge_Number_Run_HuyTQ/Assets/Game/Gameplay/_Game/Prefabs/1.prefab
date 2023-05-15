@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4886197546751828896}
   - component: {fileID: 4886197546751828897}
   - component: {fileID: 4886197546751828959}
-  - component: {fileID: 4886197546751828958}
+  - component: {fileID: -4860137830852584754}
   m_Layer: 0
   m_Name: 1
   m_TagString: Number
@@ -64,7 +64,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4886197546751828958
+--- !u!114 &-4860137830852584754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,18 +73,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4886197546751828898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24cf62b10f4375540b976e84263b1182, type: 3}
+  m_Script: {fileID: 11500000, guid: b583c7f9461f73b4aad283e0b75702fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergedObject: {fileID: 184330076329369630, guid: ed96b9c7bb3e6d74f8009f4be6666e95, type: 3}
-  backObject: {fileID: 0}
   parent: {fileID: 0}
-  currentLevel: 1
-  speedMove: 0
-  jumpForce: 5
-  shottime: 0.1
-  attackPoint: {fileID: 0}
-  currentState: 0
 --- !u!1 &4886197547287855872
 GameObject:
   m_ObjectHideFlags: 0

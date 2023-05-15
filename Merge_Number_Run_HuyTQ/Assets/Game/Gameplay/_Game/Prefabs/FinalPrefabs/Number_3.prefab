@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0378877, y: 1.0955224, z: 1}
-  m_Center: {x: 0.018943802, y: -0.04776155, z: 0}
+  m_Size: {x: 0.8432992, y: 1.0955224, z: 1}
+  m_Center: {x: 0.036113206, y: -0.04776155, z: 0}
 --- !u!1 &4604535506263702104
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,8 +145,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.2711906, y: 5.462503, z: 1}
-  m_Center: {x: 0.016797543, y: 2.686229, z: 0}
+  m_Size: {x: 3.5652943, y: 5.462503, z: 1}
+  m_Center: {x: 0.040328026, y: 2.686229, z: 0}
 --- !u!54 &4604535506263702106
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,7 +184,6 @@ MonoBehaviour:
   jumpForce: 5
   shottime: 0.1
   attackPoint: {fileID: 4604535507016200542}
-  currentState: 1
 --- !u!1 &4604535507016200541
 GameObject:
   m_ObjectHideFlags: 0
