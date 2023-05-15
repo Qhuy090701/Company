@@ -9,9 +9,9 @@ public class ControllerStatus : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Constant.TAG_NUMBER))
+        if (other.CompareTag(Constant.TAG_PLAYER))
         {
-            status = false;
+            status = true;
             scripts.enabled = status;
             Debug.Log("Script is enabled");
         }

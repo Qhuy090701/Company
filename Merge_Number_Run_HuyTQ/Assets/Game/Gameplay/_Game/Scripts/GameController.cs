@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private float swipeThreshold = 20f;
 
     private PlayerControllerState currentState;
+    private PlayerController playerController;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -25,6 +26,8 @@ public class GameController : MonoBehaviour
     {
         //transform.position = startPoint.position;
         currentState = PlayerControllerState.StartGame;
+        //getcomponent player controller 
+        playerController = GetComponent<PlayerController>();
     }
     private void Update()
     {

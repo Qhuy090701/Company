@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform attackPoint;
 
-    [SerializeField]private PlayerState currentState;
+    public PlayerState currentState;
 
     private float lastShotTime;
     private bool hasJumped = false;
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    protected enum PlayerState
+    public enum PlayerState
     {
         Idle,
         Moving,
@@ -154,47 +154,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider collision)
-    {
-        if (collision.gameObject.CompareTag(Constant.TAG_PLAYER))
-        {
-            Debug.Log("merge");
-            var merge = collision.gameObject.GetComponent<PlayerController>();
-            if (merge != null && merge.currentLevel == currentLevel)
-            {
-                if (GetInstanceID() < merge.GetInstanceID())
-                {
-                    return;
-                }
-
-                if (parent == null)
-                {
-                    parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
-                }
-
-                GameObject mergedObj = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
-                mergedObj.transform.SetParent(parent.gameObject.transform);
-                Destroy(gameObject);
-                Destroy(collision.gameObject);
-
-                // Move the merged object to the correct position next to the merge object
-                //float distance = Mathf.Abs(merge.transform.position.x - mergedObj.transform.position.x);
-                //if (mergedObj.transform.position.x > merge.transform.position.x)
-                //{
-                //    mergedObj.transform.position = new Vector3(merge.transform.position.x + distance, merge.transform.position.y, merge.transform.position.z);
-                //}
-                //else if (mergedObj.transform.position.x < merge.transform.position.x)
-                //{
-                //    mergedObj.transform.position = new Vector3(merge.transform.position.x - distance, merge.transform.position.y, merge.transform.position.z);
-                //}
-
-                //change tag player
-                mergedObj.gameObject.tag = Constant.TAG_PLAYER;
-            }
-
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Constant.TAG_NUMBER))
@@ -213,9 +172,9 @@ public class PlayerController : MonoBehaviour
             {
                 other.transform.position = new Vector3(gameObject.transform.position.x - 3.5f, gameObject.transform.position.y, gameObject.transform.position.z);
             }
-
-            //change tag = player 
             other.gameObject.tag = Constant.TAG_PLAYER;
+            currentState = PlayerState.Moving;
+
         }
 
         if (other.CompareTag(Constant.TAG_COLUMN))
