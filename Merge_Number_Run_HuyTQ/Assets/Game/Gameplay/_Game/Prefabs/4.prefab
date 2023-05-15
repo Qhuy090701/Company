@@ -109,7 +109,6 @@ GameObject:
   - component: {fileID: 7138648623500453884}
   - component: {fileID: 7138648623500453875}
   - component: {fileID: 7138648623500453874}
-  - component: {fileID: -8061084557533667797}
   m_Layer: 0
   m_Name: 4
   m_TagString: Number
@@ -169,25 +168,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7138648623500453873}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24cf62b10f4375540b976e84263b1182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mergedObject: {fileID: 0}
+  backObject: {fileID: 0}
   parent: {fileID: 0}
-  currentLevel: 4
---- !u!114 &-8061084557533667797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7138648623500453873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061ba3ddcf3690c4ba1acd2435eb92ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  status: 0
-  scripts: {fileID: 1168669562674652521, guid: f57b6c880365b9846991c1e1e2a968fc, type: 3}
+  currentLevel: 0
+  speedMove: 0
+  jumpForce: 5
+  shottime: 0.1
+  attackPoint: {fileID: 0}
+  currentState: 0
