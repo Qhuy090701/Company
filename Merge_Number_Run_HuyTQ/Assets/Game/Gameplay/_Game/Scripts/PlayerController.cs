@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour
             }
 
             other.transform.SetParent(parent.transform);
+            SortChildObjectsByX();
             if (other.transform.position.x > gameObject.transform.position.x)
             {
                 other.transform.position = new Vector3(gameObject.transform.position.x + 3.5f, gameObject.transform.position.y, gameObject.transform.position.z);
@@ -177,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (other.CompareTag(Constant.TAG_COLUMN))
+        if (other.CompareTag(Constant.TAG_COLUMN) && other.CompareTag(Constant.TAG_TRAP))
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
@@ -197,5 +198,28 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
         }    
+    }
+    private void SortChildObjectsByX()
+    {
+        if (parent == null)
+        {
+            parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
+        }
+
+        // Lấy danh sách các object con trong parent
+        GameObject[] childObjects = new GameObject[parent.transform.childCount];
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            childObjects[i] = parent.transform.GetChild(i).gameObject;
+        }
+
+        // Sắp xếp danh sách các object con dựa trên vị trí x
+        System.Array.Sort(childObjects, (obj1, obj2) => obj1.transform.position.x.CompareTo(obj2.transform.position.x));
+
+        // Đặt lại vị trí của các object con trong parent dựa trên thứ tự đã sắp xếp
+        for (int i = 0; i < childObjects.Length; i++)
+        {
+            childObjects[i].transform.SetSiblingIndex(i);
+        }
     }
 }
