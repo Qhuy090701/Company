@@ -185,6 +185,7 @@ MonoBehaviour:
   shottime: 0.1
   attackPoint: {fileID: 4604535507016200542}
   bulletData: {fileID: 0}
+  currentState: 1
 --- !u!1 &4604535507016200541
 GameObject:
   m_ObjectHideFlags: 0

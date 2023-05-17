@@ -43,8 +43,7 @@ public class Bullets : MonoBehaviour
         material = bulletData.material;
         Debug.Log("Bullet Properties: " + damage + "  " + size + " " + material);
 
-        // Gán vật liệu mới cho Renderer của Sphere
+        transform.localScale = Vector3.one * size;
         sphereRenderer.material = material;
     }
-
 }

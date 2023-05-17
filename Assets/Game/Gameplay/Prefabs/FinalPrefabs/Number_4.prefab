@@ -215,6 +215,7 @@ MonoBehaviour:
   jumpForce: 5
   shottime: 0.1
   attackPoint: {fileID: 4316266319931528536}
+  bulletData: {fileID: 0}
   currentState: 1
 --- !u!1001 &4316266319857331852
 PrefabInstance:

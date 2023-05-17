@@ -8,6 +8,7 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private GameObject mergedObject;
     [SerializeField] private GameObject backObject;
     [SerializeField] private GameObject parent;
+
     [SerializeField] private int currentLevel;
 
     [SerializeField] private float speedMove = 0.1f;
@@ -16,8 +17,9 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private float shottime = 0.1f;
 
     [SerializeField] private Transform attackPoint;
+
     [SerializeField] private BulletData bulletData;
-    private PlayerState currentState;
+    [SerializeField] private PlayerState currentState;
 
     private float lastShotTime;
     private bool hasJumped = false;
@@ -96,6 +98,7 @@ public class PlayerRun : MonoBehaviour
         Move();
         if (currentState == PlayerState.Moving)
         {
+            isShooting = true;
             ShootBullet();
         }
     }
@@ -109,7 +112,7 @@ public class PlayerRun : MonoBehaviour
     //shoot
     private void ShootBullet()
     {
-        if (isShooting = true)
+        if (isShooting)
         {
             if (Time.time - lastShotTime < shottime) return;
             if (attackPoint == null) return;
