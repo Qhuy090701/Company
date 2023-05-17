@@ -7,18 +7,18 @@ public class TrapHealth : MonoBehaviour
     private float currentHealth;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform itemSpawnPoint;
-    [SerializeField] private Text healthText;
+    // [SerializeField] private Text healthText;
 
     private void Start()
     {
-        currentHealth = maxHealth;
-        UpdateHealthText();
+        //   currentHealth = maxHealth;
+        // UpdateHealthText();
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        UpdateHealthText();
+        // UpdateHealthText();
 
         if (currentHealth <= 0)
         {
@@ -27,8 +27,8 @@ public class TrapHealth : MonoBehaviour
         }
     }
 
-    private void UpdateHealthText()
-    {
-        healthText.text = "Health: " + currentHealth.ToString();
-    }
+    //private void UpdateHealthText()
+    //{
+    //    healthText.text = "Health: " + currentHealth.ToString();
+    //}
 }

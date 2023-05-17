@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         {
             string bulletName = "Bullet" + currentLevel;
             bulletData = Resources.Load<BulletData>(bulletName);
-
+            Debug.Log(bulletData.name);
             if (bulletData == null)
             {
                 Debug.LogError("Unable to find databullet: " + bulletName);
