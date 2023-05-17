@@ -9,7 +9,10 @@ EditorBuildSettings:
     path: Assets/Funzilla/Managers/GameManager.unity
     guid: 1f6b3809b99cceb4695f04ca30ae51ae
   - enabled: 1
-    path: Assets/Game/Gameplay/Gameplay.unity
+    path: Assets/Game/Gameplay/Scene/Gameplay.unity
+    guid: 5664cd3c976df3b41bd15b5dc6cada96
+  - enabled: 0
+    path: Assets/Game/Gameplay/Gameplay1.unity
     guid: 87540a2ea724d6d46a644c5c03dea8bf
   - enabled: 1
     path: Assets/Game/SettingUI/SettingUI.unity

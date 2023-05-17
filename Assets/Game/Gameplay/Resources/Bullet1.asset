@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   size: 1.1
-  material: {fileID: 2100000, guid: f078f7de732eafd459da757a449aba3b, type: 2}
+  material: {fileID: 2100000, guid: 21eaa5d33d5f90540af3cbe5951f76b7, type: 2}

@@ -5,9 +5,11 @@ using UnityEngine;
 public class Bullets : MonoBehaviour
 {
     [SerializeField] private float lifetime = 2f;
-    private int damage;
-    private Material material;
-    private float size;
+    [SerializeField] private int damage;
+    [SerializeField] private Material material;
+    [SerializeField] private float size;
+    [SerializeField] private Renderer sphereRenderer;
+
     void Update()
     {
         StartCoroutine(DisableAfterTime());
@@ -27,7 +29,7 @@ public class Bullets : MonoBehaviour
         }
         if (other.CompareTag(Constant.TAG_COLUMN))
         {
-            Debug.Log("Va cham");
+            Debug.Log("Collision");
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
             CylindricalTrap hurtTrap = other.gameObject.GetComponent<CylindricalTrap>();
             hurtTrap.TakeDamage(damage);
@@ -40,5 +42,9 @@ public class Bullets : MonoBehaviour
         size = bulletData.size;
         material = bulletData.material;
         Debug.Log("Bullet Properties: " + damage + "  " + size + " " + material);
+
+        // Gán vật liệu mới cho Renderer của Sphere
+        sphereRenderer.material = material;
     }
+
 }

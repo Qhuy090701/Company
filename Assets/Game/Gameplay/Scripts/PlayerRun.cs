@@ -23,6 +23,7 @@ public class PlayerRun : MonoBehaviour
     private bool hasJumped = false;
     private bool isShooting = false;
 
+
     private void Awake()
     {
         if (bulletData == null)
@@ -200,10 +201,10 @@ public class PlayerRun : MonoBehaviour
             Destroy(gameObject);
             gameObject.SetActive(false);
             GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
-
             currentState = PlayerState.Moving;
             backObj.transform.SetParent(parent.transform);
         }
+
         if (other.CompareTag(Constant.TAG_JUMPPOINT))
         {
             currentState = PlayerState.Jumping;
@@ -211,6 +212,7 @@ public class PlayerRun : MonoBehaviour
             isShooting = false;
             Debug.Log("Jump");
         }
+
         if (other.CompareTag(Constant.TAG_DEADZONE))
         {
             Destroy(gameObject);
@@ -239,4 +241,5 @@ public class PlayerRun : MonoBehaviour
             childObjects[i].transform.SetSiblingIndex(i);
         }
     }
+   
 }

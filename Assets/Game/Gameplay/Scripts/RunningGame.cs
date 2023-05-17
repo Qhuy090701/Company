@@ -6,6 +6,7 @@ public class RunningGame : MonoBehaviour
 {
     [SerializeField] private float speedTouch = 5f;
     [SerializeField] private float swipeThreshold = 20f;
+    //public List<RunningGame> runningGames = new List<RunningGame>();
 
     private PlayerControllerState currentState;
     private RunningGame runningGame;
