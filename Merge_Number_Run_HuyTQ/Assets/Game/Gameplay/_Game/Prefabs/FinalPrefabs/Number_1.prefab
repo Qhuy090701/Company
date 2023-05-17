@@ -88,6 +88,7 @@ MonoBehaviour:
   jumpForce: 5
   shottime: 0.1
   attackPoint: {fileID: 4852251156619968409}
+  bulletData: {fileID: 0}
 --- !u!114 &4430014631373018813
 MonoBehaviour:
   m_ObjectHideFlags: 0

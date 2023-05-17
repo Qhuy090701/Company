@@ -17,15 +17,28 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Transform attackPoint;
 
+    [SerializeField] private BulletData bulletData;
     private PlayerState currentState;
 
     private float lastShotTime;
     private bool hasJumped = false;
     private bool isShooting = false;
 
+    private void Awake()
+    {
+        if (bulletData == null)
+        {
+            string bulletName = "Bullet" + currentLevel;
+            bulletData = Resources.Load<BulletData>(bulletName);
+
+            if (bulletData == null)
+            {
+                Debug.LogError("Unable to find databullet: " + bulletName);
+            }
+        }
+    }
     private void Start()
     {
-        //currentState = PlayerState.Idle;
         isShooting = false;
         if (parent == null)
         {
@@ -87,7 +100,12 @@ public class PlayerController : MonoBehaviour
         if (isShooting = true)
         {
             if (Time.time - lastShotTime < shottime) return;
+            if (attackPoint == null) return;
             GameObject bullet = ObjectPool.Instance.SpawnFromPool(Constant.TAG_BULLET, attackPoint.position, Quaternion.identity);
+
+            Bullets bulletController = bullet.GetComponent<Bullets>();
+            bulletController.SetBulletProperties(bulletData);
+
             bullet.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.up * 0.5f) * (speedBullets * 10);
             lastShotTime = Time.time;
             Debug.Log("Shoot");
@@ -175,10 +193,9 @@ public class PlayerController : MonoBehaviour
             }
             other.gameObject.tag = Constant.TAG_PLAYER;
             currentState = PlayerState.Moving;
-
         }
 
-        if (other.CompareTag(Constant.TAG_COLUMN) && other.CompareTag(Constant.TAG_TRAP))
+        if (other.CompareTag(Constant.TAG_COLUMN) || other.CompareTag(Constant.TAG_TRAP))
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
@@ -194,10 +211,10 @@ public class PlayerController : MonoBehaviour
             isShooting = false;
             Debug.Log("Jump");
         }
-        if(other.CompareTag(Constant.TAG_DEADZONE))
+        if (other.CompareTag(Constant.TAG_DEADZONE))
         {
             Destroy(gameObject);
-        }    
+        }
     }
     private void SortChildObjectsByX()
     {

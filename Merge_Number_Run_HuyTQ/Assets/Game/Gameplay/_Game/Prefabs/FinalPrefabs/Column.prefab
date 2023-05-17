@@ -118,9 +118,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  currentHealth: 5
   itemPrefab: {fileID: 9217885441206360667, guid: 6f2a3df3be7cd3f4cb096fa40cf03c66, type: 3}
   itemSpawnPoint: {fileID: 5187255067800108839}
+  healthText: {fileID: 0}
 --- !u!1 &4281512519494484809
 GameObject:
   m_ObjectHideFlags: 0

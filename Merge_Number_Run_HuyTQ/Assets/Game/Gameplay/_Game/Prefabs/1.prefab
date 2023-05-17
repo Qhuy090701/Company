@@ -73,10 +73,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4886197546751828898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b583c7f9461f73b4aad283e0b75702fb, type: 3}
+  m_Script: {fileID: 11500000, guid: cdf49ceaa424d9d47b84ba011ee3ae0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
+  bulletData: {fileID: 11400000, guid: 9b6a3e72c20b9c54f940b7c1a8315896, type: 2}
+  attackPoint: {fileID: 4886197546751828896}
 --- !u!1 &4886197547287855872
 GameObject:
   m_ObjectHideFlags: 0

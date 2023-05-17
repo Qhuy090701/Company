@@ -1,12 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    [SerializeField] private float dame = 1f;
-    [SerializeField] private float lifetime = 2.5f;
-
+    [SerializeField] private float lifetime = 2f;
+    private int damage;
     void Update()
     {
         StartCoroutine(DisableAfterTime());
@@ -29,7 +28,15 @@ public class Bullets : MonoBehaviour
             Debug.Log("Va cham");
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
             TrapHealth hurtTrap = other.gameObject.GetComponent<TrapHealth>();
-            hurtTrap.TakeDamage(dame);
+            hurtTrap.TakeDamage(damage);
         }
+    }
+
+    public void SetBulletProperties(BulletData bulletData)
+    {
+        damage = bulletData.damage;
+        float size = bulletData.size;
+        Material material = bulletData.material;
+        Debug.Log("Bullet Properties: " + damage + "  " + size + " " + material);
     }
 }
