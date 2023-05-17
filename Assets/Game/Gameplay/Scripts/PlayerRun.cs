@@ -91,7 +91,7 @@ public class PlayerRun : MonoBehaviour
         {
             currentState = PlayerState.Moving;
         }
-    }    
+    }
 
     private void UpdateMoveState()
     {
@@ -126,8 +126,6 @@ public class PlayerRun : MonoBehaviour
             Debug.Log("Shoot");
         }
     }
-
-    //state jump
     private void UpdateJumpState()
     {
         Move();
@@ -164,6 +162,7 @@ public class PlayerRun : MonoBehaviour
                 }
 
                 GameObject mergedObj = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
+
                 mergedObj.transform.SetParent(parent.gameObject.transform);
                 Destroy(gameObject);
                 Destroy(collision.gameObject);
@@ -213,7 +212,13 @@ public class PlayerRun : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
             gameObject.SetActive(false);
+            if (backObject == null)
+            {
+                return;
+
+            }
             GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
+
             currentState = PlayerState.Moving;
             backObj.transform.SetParent(parent.transform);
         }
@@ -254,5 +259,5 @@ public class PlayerRun : MonoBehaviour
             childObjects[i].transform.SetSiblingIndex(i);
         }
     }
-   
+
 }

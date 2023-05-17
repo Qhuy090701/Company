@@ -693,7 +693,7 @@ MonoBehaviour:
   pools:
   - tag: Bullet
     prefab: {fileID: 233339855824828982, guid: 4afe9bb6bb844fc4dbc62e94d55e3cc4, type: 3}
-    size: 30
+    size: 100
 --- !u!4 &212724874
 Transform:
   m_ObjectHideFlags: 0
