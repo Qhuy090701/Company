@@ -6,6 +6,8 @@ public class Bullets : MonoBehaviour
 {
     [SerializeField] private float lifetime = 2f;
     private int damage;
+    private Material material;
+    private float size;
     void Update()
     {
         StartCoroutine(DisableAfterTime());
@@ -35,8 +37,8 @@ public class Bullets : MonoBehaviour
     public void SetBulletProperties(BulletData bulletData)
     {
         damage = bulletData.damage;
-        float size = bulletData.size;
-        Material material = bulletData.material;
+        size = bulletData.size;
+        material = bulletData.material;
         Debug.Log("Bullet Properties: " + damage + "  " + size + " " + material);
     }
 }
