@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class RunningGame : MonoBehaviour
 {
     [SerializeField] private float speedTouch = 5f;
     [SerializeField] private float swipeThreshold = 20f;
 
     private PlayerControllerState currentState;
-    private PlayerController playerController;
+    private RunningGame runningGame;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
         //transform.position = startPoint.position;
         currentState = PlayerControllerState.StartGame;
         //getcomponent player controller 
-        playerController = GetComponent<PlayerController>();
+        runningGame = GetComponent<RunningGame>();
     }
     private void Update()
     {

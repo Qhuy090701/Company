@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class TrapHealth : MonoBehaviour
+public class CylindricalTrap: MonoBehaviour
 {
     [SerializeField] private float maxHealth;
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform itemSpawnPoint;
     // [SerializeField] private Text healthText;
 
     private void Start()
     {
-        //   currentHealth = maxHealth;
+        currentHealth = maxHealth;
         // UpdateHealthText();
     }
 

@@ -27,7 +27,7 @@ public class Bullets : MonoBehaviour
         {
             Debug.Log("Va cham");
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
-            TrapHealth hurtTrap = other.gameObject.GetComponent<TrapHealth>();
+            CylindricalTrap hurtTrap = other.gameObject.GetComponent<CylindricalTrap>();
             hurtTrap.TakeDamage(damage);
         }
     }

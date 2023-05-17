@@ -17,20 +17,20 @@ public class TrapRoll : MonoBehaviour
         switch(trapStateRoll)
         {
             case TrapStateRoll.RotateAroundTheYAxis:
-                RotateAroundTheYAxis();
+                UpdateRotateAroundTheYAxis();
                 break;
             case TrapStateRoll.RotateAroundTheZAxis:
-                RotateAroundTheZAxis();
+                UpdateRotateAroundTheZAxis();
                 break;
         }
     }
 
-    void RotateAroundTheYAxis()
+    void UpdateRotateAroundTheYAxis()
     {
         transform.Rotate(new Vector3(0, 1, 0) * Time.deltaTime * speedroll);
     }
 
-    void RotateAroundTheZAxis()
+    void UpdateRotateAroundTheZAxis()
     {
         transform.Rotate(new Vector3(0, 0, 1) * Time.deltaTime * speedroll);
     }

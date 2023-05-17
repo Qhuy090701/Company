@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class PlayerController : MonoBehaviour
+public class PlayerRun : MonoBehaviour
 {
     [SerializeField] private GameObject mergedObject;
     [SerializeField] private GameObject backObject;
@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float shottime = 0.1f;
 
     [SerializeField] private Transform attackPoint;
-
     [SerializeField] private BulletData bulletData;
     private PlayerState currentState;
 
@@ -60,18 +59,18 @@ public class PlayerController : MonoBehaviour
         switch (currentState)
         {
             case PlayerState.Idle:
-                IdleState();
+                UpdateIdleState();
                 break;
             case PlayerState.Moving:
-                MoveState();
+                UpdateMoveState();
                 break;
             case PlayerState.Jumping:
-                JumpState();
+                UpdateJumpState();
                 break;
         }
     }
 
-    private void IdleState()
+    private void UpdateIdleState()
     {
         if (Input.GetMouseButton(0))
         {
@@ -79,7 +78,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MoveState()
+    private void UpdateMoveState()
     {
         Move();
         if (currentState == PlayerState.Moving)
@@ -113,7 +112,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //state jump
-    private void JumpState()
+    private void UpdateJumpState()
     {
         Move();
         if (!hasJumped)
@@ -136,7 +135,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag(Constant.TAG_PLAYER))
         {
             Debug.Log("merge");
-            var merge = collision.gameObject.GetComponent<PlayerController>();
+            var merge = collision.gameObject.GetComponent<PlayerRun>();
             if (merge != null && merge.currentLevel == currentLevel)
             {
                 if (GetInstanceID() < merge.GetInstanceID())

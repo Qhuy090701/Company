@@ -2789,6 +2789,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 624731651177248444, guid: 59f195910226c674bbeca2d280765343, type: 3}
+      propertyPath: speedroll
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 624731651177248444, guid: 59f195910226c674bbeca2d280765343, type: 3}
+      propertyPath: trapStateRoll
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7222601928764539510, guid: 59f195910226c674bbeca2d280765343, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -2836,6 +2844,10 @@ PrefabInstance:
     - target: {fileID: 8556210497071340368, guid: 59f195910226c674bbeca2d280765343, type: 3}
       propertyPath: m_Name
       value: BuildTrap
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854837267693560544, guid: 59f195910226c674bbeca2d280765343, type: 3}
+      propertyPath: currentState
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8854837267693560547, guid: 59f195910226c674bbeca2d280765343, type: 3}
       propertyPath: m_LocalPosition.y
