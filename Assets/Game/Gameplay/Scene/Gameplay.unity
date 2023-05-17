@@ -2046,7 +2046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75bc970f3e4d47b4385476a6696ef558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedTouch: 5
+  speedTouch: 10
   swipeThreshold: 20
 --- !u!4 &1741995599
 Transform:

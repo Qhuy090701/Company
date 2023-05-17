@@ -49,6 +49,7 @@ public class PlayerRun : MonoBehaviour
     private enum PlayerState
     {
         Idle,
+        Wait,
         Moving,
         Jumping,
         Lose,
@@ -62,6 +63,9 @@ public class PlayerRun : MonoBehaviour
             case PlayerState.Idle:
                 UpdateIdleState();
                 break;
+            case PlayerState.Wait:
+                UpdateWaitState();
+                break;
             case PlayerState.Moving:
                 UpdateMoveState();
                 break;
@@ -73,11 +77,19 @@ public class PlayerRun : MonoBehaviour
 
     private void UpdateIdleState()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentState = PlayerState.Wait;
+        }
+    }
+
+    private void UpdateWaitState()
+    {
+        if (transform.parent == parent.transform)
         {
             currentState = PlayerState.Moving;
         }
-    }
+    }    
 
     private void UpdateMoveState()
     {
@@ -123,7 +135,6 @@ public class PlayerRun : MonoBehaviour
         }
 
         currentState = PlayerState.Moving;
-
     }
 
     private void Jump()
@@ -168,7 +179,6 @@ public class PlayerRun : MonoBehaviour
                 //change tag player
                 mergedObj.gameObject.tag = Constant.TAG_PLAYER;
             }
-
         }
     }
 
