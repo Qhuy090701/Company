@@ -200,6 +200,7 @@ public class PlayerRun : MonoBehaviour
             Destroy(gameObject);
             gameObject.SetActive(false);
             GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
+
             currentState = PlayerState.Moving;
             backObj.transform.SetParent(parent.transform);
         }
