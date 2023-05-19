@@ -29,7 +29,6 @@ public class Bullets : MonoBehaviour
         }
         if (other.CompareTag(Constant.TAG_COLUMN))
         {
-            Debug.Log("Collision");
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
             CylindricalTrap hurtTrap = other.gameObject.GetComponent<CylindricalTrap>();
             hurtTrap.TakeDamage(damage);

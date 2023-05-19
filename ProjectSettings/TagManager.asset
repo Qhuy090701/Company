@@ -13,8 +13,6 @@ TagManager:
   - DeadZone
   - StartPoint
   - Gate
-  - LevelUp
-  - LevelDown
   layers:
   - Default
   - TransparentFX

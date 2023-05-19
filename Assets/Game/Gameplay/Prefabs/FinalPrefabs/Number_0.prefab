@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -114,12 +114,11 @@ MonoBehaviour:
   backObject: {fileID: 0}
   parent: {fileID: 0}
   currentLevel: 0
-  speedMove: 0
   speedBullets: 10
   jumpForce: 5
   shottime: 0.1
   attackPoint: {fileID: 9217885439876208801}
-  bulletData: {fileID: 0}
+  bulletData: {fileID: 11400000, guid: 38b64548a980518498de34f44bbdab8a, type: 2}
   currentState: 1
 --- !u!114 &-6166754470560343900
 MonoBehaviour:

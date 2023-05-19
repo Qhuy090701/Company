@@ -1,19 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Playables;
+﻿using UnityEngine;
 
 public class PlayerRun : MonoBehaviour
 {
     [SerializeField] private GameObject mergedObject;
     [SerializeField] private GameObject backObject;
-    [SerializeField] private GameObject parent;
+
+    public GameObject parent;
 
     [SerializeField] private int currentLevel;
 
-    [SerializeField] private float speedMove = 0.1f;
     [SerializeField] private float speedBullets = 10f;
-    [SerializeField] private float jumpForce = 15f;
+    [SerializeField] private float jumpForce = 30f;
     [SerializeField] private float shottime = 0.1f;
 
     [SerializeField] private Transform attackPoint;
@@ -21,10 +18,10 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private BulletData bulletData;
     [SerializeField] private PlayerState currentState;
 
-    private float lastShotTime;
-    private bool hasJumped = false;
-    private bool isShooting = false;
 
+    private float lastShotTime;
+    private bool hasJumped;
+    private bool isShooting;
 
     private void Awake()
     {
@@ -32,13 +29,9 @@ public class PlayerRun : MonoBehaviour
         {
             string bulletName = "Bullet" + currentLevel;
             bulletData = Resources.Load<BulletData>(bulletName);
-            Debug.Log(bulletData.name);
-            if (bulletData == null)
-            {
-                Debug.LogError("Unable to find databullet: " + bulletName);
-            }
         }
     }
+
     private void Start()
     {
         isShooting = false;
@@ -73,6 +66,7 @@ public class PlayerRun : MonoBehaviour
                 break;
             case PlayerState.Jumping:
                 UpdateJumpState();
+                Debug.Log("Jump");
                 break;
         }
     }
@@ -95,7 +89,6 @@ public class PlayerRun : MonoBehaviour
 
     private void UpdateMoveState()
     {
-        Move();
         if (currentState == PlayerState.Moving)
         {
             isShooting = true;
@@ -103,35 +96,27 @@ public class PlayerRun : MonoBehaviour
         }
     }
 
-    //move
-    private void Move()
-    {
-        transform.position += Vector3.forward * speedMove * Time.deltaTime;
-    }
-
-    //shoot
     private void ShootBullet()
     {
-        if (isShooting)
+        if (isShooting && Time.time - lastShotTime >= shottime && attackPoint != null)
         {
-            if (Time.time - lastShotTime < shottime) return;
-            if (attackPoint == null) return;
             GameObject bullet = ObjectPool.Instance.SpawnFromPool(Constant.TAG_BULLET, attackPoint.position, Quaternion.identity);
 
             Bullets bulletController = bullet.GetComponent<Bullets>();
-            bulletController.SetBulletProperties(bulletData);
+            bulletController?.SetBulletProperties(bulletData);
 
             bullet.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.up * 0.5f) * (speedBullets * 10);
             lastShotTime = Time.time;
-            Debug.Log("Shoot");
         }
     }
+
+
     private void UpdateJumpState()
     {
-        Move();
         if (!hasJumped)
         {
             Jump();
+            isShooting = false;
             hasJumped = true;
         }
 
@@ -147,38 +132,25 @@ public class PlayerRun : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(Constant.TAG_PLAYER))
         {
-            Debug.Log("merge");
             var merge = collision.gameObject.GetComponent<PlayerRun>();
-            if (merge != null && merge.currentLevel == currentLevel)
+            if (merge != null && merge.currentLevel == currentLevel && GetInstanceID() >= merge.GetInstanceID())
             {
-                if (GetInstanceID() < merge.GetInstanceID())
-                {
-                    return;
-                }
-
                 if (parent == null)
                 {
                     parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
                 }
 
                 GameObject mergedObj = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
-
                 mergedObj.transform.SetParent(parent.gameObject.transform);
                 Destroy(gameObject);
                 Destroy(collision.gameObject);
 
-                // Move the merged object to the correct position next to the merge object
                 float distance = Mathf.Abs(merge.transform.position.x - mergedObj.transform.position.x);
-                if (mergedObj.transform.position.x > merge.transform.position.x)
-                {
-                    mergedObj.transform.position = new Vector3(merge.transform.position.x + distance, merge.transform.position.y, merge.transform.position.z);
-                }
-                else if (mergedObj.transform.position.x < merge.transform.position.x)
-                {
-                    mergedObj.transform.position = new Vector3(merge.transform.position.x - distance, merge.transform.position.y, merge.transform.position.z);
-                }
+                mergedObj.transform.position = new Vector3(
+                    merge.transform.position.x + (mergedObj.transform.position.x > merge.transform.position.x ? distance : -distance),
+                    merge.transform.position.y,
+                    merge.transform.position.z);
 
-                //change tag player
                 mergedObj.gameObject.tag = Constant.TAG_PLAYER;
             }
         }
@@ -194,15 +166,10 @@ public class PlayerRun : MonoBehaviour
             }
 
             other.transform.SetParent(parent.transform);
-            SortChildObjectsByX();
-            if (other.transform.position.x > gameObject.transform.position.x)
-            {
-                other.transform.position = new Vector3(gameObject.transform.position.x + 3.5f, gameObject.transform.position.y, gameObject.transform.position.z);
-            }
-            else if (other.transform.position.x < gameObject.transform.position.x)
-            {
-                other.transform.position = new Vector3(gameObject.transform.position.x - 3.5f, gameObject.transform.position.y, gameObject.transform.position.z);
-            }
+            other.transform.position = new Vector3(
+            gameObject.transform.position.x + (other.transform.position.x > gameObject.transform.position.x ? 3.5f : -3.5f),
+            gameObject.transform.position.y,
+                gameObject.transform.position.z);
             other.gameObject.tag = Constant.TAG_PLAYER;
             currentState = PlayerState.Moving;
         }
@@ -211,16 +178,8 @@ public class PlayerRun : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
-            gameObject.SetActive(false);
-            if (backObject == null)
-            {
-                return;
-
-            }
-            GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
-
-            currentState = PlayerState.Moving;
-            backObj.transform.SetParent(parent.transform);
+            other.gameObject.tag = Constant.TAG_PLAYER;
+            LevelDownNumber();
         }
 
         if (other.CompareTag(Constant.TAG_JUMPPOINT))
@@ -236,28 +195,45 @@ public class PlayerRun : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void SortChildObjectsByX()
+
+    public void LevelDownNumber()
     {
-        if (parent == null)
+        if (backObject == null)
         {
-            parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
+            return;
         }
 
-        // Lấy danh sách các object con trong parent
-        GameObject[] childObjects = new GameObject[parent.transform.childCount];
-        for (int i = 0; i < parent.transform.childCount; i++)
-        {
-            childObjects[i] = parent.transform.GetChild(i).gameObject;
-        }
-
-        // Sắp xếp danh sách các object con dựa trên vị trí x
-        System.Array.Sort(childObjects, (obj1, obj2) => obj1.transform.position.x.CompareTo(obj2.transform.position.x));
-
-        // Đặt lại vị trí của các object con trong parent dựa trên thứ tự đã sắp xếp
-        for (int i = 0; i < childObjects.Length; i++)
-        {
-            childObjects[i].transform.SetSiblingIndex(i);
-        }
+        GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
+        backObj.transform.SetParent(parent.transform);
+        backObj.gameObject.tag = Constant.TAG_PLAYER;
+        currentState = PlayerState.Moving;
     }
+
+    public void LevelUpNumber()
+    {
+        if (backObject == null)
+        {
+            return;
+        }
+
+        GameObject upObject = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
+        upObject.transform.SetParent(parent.transform);
+        upObject.gameObject.tag = Constant.TAG_PLAYER;
+        currentState = PlayerState.Moving;
+    }
+
+    public void SpeedBulletDown()
+    {
+        speedBullets -= 1;
+    }
+
+    public void SpeedBulletUp()
+    {
+        speedBullets += 1;
+    }
+
+    public void CreateNumber()
+    {
+    }    
 
 }

@@ -9,6 +9,5 @@ public static class Constant
     public const string TAG_JUMPPOINT = "JumpPoint";
     public const string TAG_DEADZONE = "DeadZone";
     public const string TAG_STARTPOINT = "StartPoint";
-    public const string TAG_LEVELUP = "LevelUp";
-    public const string TAG_LEVELDOWN = "LevelDown";
+    public const string TAG_GATE = "Gate";
 }
