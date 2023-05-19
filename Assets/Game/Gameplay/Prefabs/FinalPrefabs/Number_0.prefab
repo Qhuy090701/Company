@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 9217885441206360661}
   - component: {fileID: 9217885441206360663}
   - component: {fileID: 9217885441206360662}
-  - component: {fileID: -6166754470560343900}
   m_Layer: 0
   m_Name: Number_0
   m_TagString: Number
@@ -120,20 +119,7 @@ MonoBehaviour:
   attackPoint: {fileID: 9217885439876208801}
   bulletData: {fileID: 11400000, guid: 38b64548a980518498de34f44bbdab8a, type: 2}
   currentState: 1
---- !u!114 &-6166754470560343900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9217885441206360667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061ba3ddcf3690c4ba1acd2435eb92ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  status: 0
-  scripts: {fileID: 9217885441206360662}
+  isShootingtype: 0
 --- !u!1 &9217885441276136796
 GameObject:
   m_ObjectHideFlags: 0

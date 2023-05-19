@@ -23,6 +23,8 @@ public class PlayerRun : MonoBehaviour
     private bool hasJumped;
     private bool isShooting;
 
+    public bool isShootingtype;
+
     private void Awake()
     {
         if (bulletData == null)
@@ -96,17 +98,16 @@ public class PlayerRun : MonoBehaviour
         }
     }
 
-    private void ShootBullet()
+    public void ShootBullet()
     {
         if (isShooting && Time.time - lastShotTime >= shottime && attackPoint != null)
         {
             GameObject bullet = ObjectPool.Instance.SpawnFromPool(Constant.TAG_BULLET, attackPoint.position, Quaternion.identity);
-
             Bullets bulletController = bullet.GetComponent<Bullets>();
             bulletController?.SetBulletProperties(bulletData);
-
             bullet.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.up * 0.5f) * (speedBullets * 10);
             lastShotTime = Time.time;
+
         }
     }
 
@@ -118,9 +119,8 @@ public class PlayerRun : MonoBehaviour
             Jump();
             isShooting = false;
             hasJumped = true;
+            currentState = PlayerState.Moving;
         }
-
-        currentState = PlayerState.Moving;
     }
 
     private void Jump()
@@ -234,6 +234,24 @@ public class PlayerRun : MonoBehaviour
 
     public void CreateNumber()
     {
-    }    
+    }
+
+    public void CreateBullets()
+    {
+        if (attackPoint != null)
+        {
+            // Tạo tia bắn sang bên trái
+            GameObject bulletLeft = ObjectPool.Instance.SpawnFromPool(Constant.TAG_BULLET, attackPoint.position, Quaternion.identity);
+            Bullets bulletControllerLeft = bulletLeft.GetComponent<Bullets>();
+            bulletControllerLeft?.SetBulletProperties(bulletData);
+            bulletLeft.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.left * 0.1f) * (speedBullets * 10);
+
+            // Tạo tia bắn sang bên phải
+            GameObject bulletRight = ObjectPool.Instance.SpawnFromPool(Constant.TAG_BULLET, attackPoint.position, Quaternion.identity);
+            Bullets bulletControllerRight = bulletRight.GetComponent<Bullets>();
+            bulletControllerRight?.SetBulletProperties(bulletData);
+            bulletRight.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.right * 0.1f) * (speedBullets * 10);
+        }
+    }
 
 }

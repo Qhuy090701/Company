@@ -6,7 +6,6 @@ public class ControllerStatus : MonoBehaviour
 {
     [SerializeField] private bool status;
     [SerializeField] private Behaviour scripts;
-    //Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(Constant.TAG_PLAYER))
