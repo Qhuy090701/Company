@@ -4,7 +4,7 @@ public class Portal : MonoBehaviour
 {
     [SerializeField] private GameObject createNumber0;
     [SerializeField] private PortalState portalState;
-    public PlayerRun playerRun;
+    private PlayerRun playerRun;
 
     private void Start()
     {
@@ -59,6 +59,8 @@ public class Portal : MonoBehaviour
                     number.transform.SetParent(playerRun.parent.transform);
                     break;
                 case PortalState.CreateBullet:
+                    Destroy(gameObject);
+                    player.shootType = true;
                     break;
             }
         }

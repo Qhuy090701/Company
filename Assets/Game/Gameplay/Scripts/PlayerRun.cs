@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-
 public class PlayerRun : MonoBehaviour
 {
     [SerializeField] private GameObject mergedObject;
@@ -18,11 +17,10 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private BulletData bulletData;
     [SerializeField] private PlayerState currentState;
 
-
+    public bool shootType;
     private float lastShotTime;
     private bool hasJumped;
     private bool isShooting;
-
     public bool isShootingtype;
 
     private void Awake()
@@ -107,8 +105,12 @@ public class PlayerRun : MonoBehaviour
             bulletController?.SetBulletProperties(bulletData);
             bullet.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.up * 0.5f) * (speedBullets * 10);
             lastShotTime = Time.time;
-
+            if (shootType == true)
+            {
+                CreateBullets();
+            }
         }
+
     }
 
 
@@ -142,6 +144,8 @@ public class PlayerRun : MonoBehaviour
 
                 GameObject mergedObj = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
                 mergedObj.transform.SetParent(parent.gameObject.transform);
+                mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
+
                 Destroy(gameObject);
                 Destroy(collision.gameObject);
 
@@ -155,24 +159,24 @@ public class PlayerRun : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Constant.TAG_NUMBER))
-        {
-            if (parent == null)
-            {
-                parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
-            }
+        //if (other.CompareTag(Constant.TAG_NUMBER))
+        //{
+        //    if (parent == null)
+        //    {
+        //        parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
+        //    }
 
-            other.transform.SetParent(parent.transform);
-            other.transform.position = new Vector3(
-            gameObject.transform.position.x + (other.transform.position.x > gameObject.transform.position.x ? 3.5f : -3.5f),
-            gameObject.transform.position.y,
-                gameObject.transform.position.z);
-            other.gameObject.tag = Constant.TAG_PLAYER;
-            currentState = PlayerState.Moving;
-        }
+        //    other.transform.SetParent(parent.transform);
+        //    other.transform.position = new Vector3(
+        //    gameObject.transform.position.x + (other.transform.position.x > gameObject.transform.position.x ? 3.5f : -3.5f),
+        //    gameObject.transform.position.y,
+        //        gameObject.transform.position.z);
+        //    other.gameObject.tag = Constant.TAG_PLAYER;
+        //    currentState = PlayerState.Moving;
+        //}
+
 
         if (other.CompareTag(Constant.TAG_COLUMN) || other.CompareTag(Constant.TAG_TRAP))
         {
@@ -196,31 +200,34 @@ public class PlayerRun : MonoBehaviour
         }
     }
 
-    public void LevelDownNumber()
+public void LevelDownNumber()
+{
+    if (backObject == null)
     {
-        if (backObject == null)
-        {
-            return;
-        }
-
-        GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
-        backObj.transform.SetParent(parent.transform);
-        backObj.gameObject.tag = Constant.TAG_PLAYER;
-        currentState = PlayerState.Moving;
+        return;
     }
 
-    public void LevelUpNumber()
-    {
-        if (backObject == null)
-        {
-            return;
-        }
+    GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
+    backObj.transform.SetParent(parent.transform);
+    backObj.gameObject.tag = Constant.TAG_PLAYER;
+    currentState = PlayerState.Moving;
+    backObj.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
+}
 
-        GameObject upObject = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
-        upObject.transform.SetParent(parent.transform);
-        upObject.gameObject.tag = Constant.TAG_PLAYER;
-        currentState = PlayerState.Moving;
+public void LevelUpNumber()
+{
+    if (backObject == null)
+    {
+        return;
     }
+
+    GameObject upObject = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
+    upObject.transform.SetParent(parent.transform);
+    upObject.gameObject.tag = Constant.TAG_PLAYER;
+    currentState = PlayerState.Moving;
+    upObject.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
+}
+
 
     public void SpeedBulletDown()
     {
@@ -234,19 +241,20 @@ public class PlayerRun : MonoBehaviour
 
     public void CreateNumber()
     {
+       
     }
 
     public void CreateBullets()
     {
         if (attackPoint != null)
         {
-            // Tạo tia bắn sang bên trái
+            // Tạo tia bắn sang bên trái 
             GameObject bulletLeft = ObjectPool.Instance.SpawnFromPool(Constant.TAG_BULLET, attackPoint.position, Quaternion.identity);
             Bullets bulletControllerLeft = bulletLeft.GetComponent<Bullets>();
             bulletControllerLeft?.SetBulletProperties(bulletData);
             bulletLeft.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.left * 0.1f) * (speedBullets * 10);
 
-            // Tạo tia bắn sang bên phải
+            // Tạo tia bắn sang bên phải 
             GameObject bulletRight = ObjectPool.Instance.SpawnFromPool(Constant.TAG_BULLET, attackPoint.position, Quaternion.identity);
             Bullets bulletControllerRight = bulletRight.GetComponent<Bullets>();
             bulletControllerRight?.SetBulletProperties(bulletData);
