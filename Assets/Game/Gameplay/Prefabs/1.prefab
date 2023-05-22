@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4886197546751828896}
   - component: {fileID: 4886197546751828897}
   - component: {fileID: 4886197546751828959}
-  - component: {fileID: -4860137830852584754}
+  - component: {fileID: -6530045274898727722}
   m_Layer: 0
   m_Name: 1
   m_TagString: Number
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4886197546751828898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.4117006, y: 0.99995613, z: -33.64}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4886197547287855935}
@@ -64,7 +64,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &-4860137830852584754
+--- !u!114 &-6530045274898727722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,11 +73,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4886197546751828898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf49ceaa424d9d47b84ba011ee3ae0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4705718b3814665459bbf67dd508c600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletData: {fileID: 11400000, guid: 9b6a3e72c20b9c54f940b7c1a8315896, type: 2}
-  attackPoint: {fileID: 4886197546751828896}
+  parent: {fileID: 0}
 --- !u!1 &4886197547287855872
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 public class PlayerRun : MonoBehaviour
 {
     [SerializeField] private GameObject mergedObject;
@@ -146,6 +147,8 @@ public class PlayerRun : MonoBehaviour
                 mergedObj.transform.SetParent(parent.gameObject.transform);
                 mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
 
+               
+
                 Destroy(gameObject);
                 Destroy(collision.gameObject);
 
@@ -161,21 +164,24 @@ public class PlayerRun : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag(Constant.TAG_NUMBER))
-        //{
-        //    if (parent == null)
-        //    {
-        //        parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
-        //    }
+        if (other.gameObject.CompareTag(Constant.TAG_NUMBER))
+        {
+            other.gameObject.transform.parent = parent.transform;
+            other.gameObject.tag = Constant.TAG_PLAYER;
 
-        //    other.transform.SetParent(parent.transform);
-        //    other.transform.position = new Vector3(
-        //    gameObject.transform.position.x + (other.transform.position.x > gameObject.transform.position.x ? 3.5f : -3.5f),
-        //    gameObject.transform.position.y,
-        //        gameObject.transform.position.z);
-        //    other.gameObject.tag = Constant.TAG_PLAYER;
-        //    currentState = PlayerState.Moving;
-        //}
+            if (other.gameObject.transform.position.x < gameObject.transform.position.x)
+            {
+                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x - 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            else
+            {
+                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x + 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
+            }
+            if (shootType == true)
+            {
+                other.gameObject.GetComponent<PlayerRun>().shootType = true;
+            }
+        }
 
 
         if (other.CompareTag(Constant.TAG_COLUMN) || other.CompareTag(Constant.TAG_TRAP))
@@ -262,4 +268,23 @@ public void LevelUpNumber()
         }
     }
 
+    Vector3 NewCharacterPosition(int _posNumber)
+    {
+        Vector3 _pos;
+        int _xPos = (_posNumber % 10 + 1) / 2;
+        int _zPos = -_posNumber / 10;
+        if (_posNumber % 2 == 0)
+        {
+            _pos = new Vector3(_xPos + destinyPopulation / 2, 0, _zPos) * destinyPopulation;
+        }
+        else
+        {
+            if (_posNumber > 10)
+                _pos = new Vector3((_xPos) * -1 + destinyPopulation / 2, 0, _zPos) * destinyPopulation;
+            else
+                _pos = new Vector3((_xPos) * -1, 0, _zPos) * destinyPopulation;
+
+        }
+        return (_pos);
+    }
 }
