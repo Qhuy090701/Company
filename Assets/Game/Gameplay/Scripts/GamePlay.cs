@@ -30,7 +30,7 @@ public class GamePlay : MonoBehaviour
         {
             case GameState.RunGame:
                 runningGame.enabled = true;
-                fightGame.enabled = false;
+                //fightGame.enabled = false;
                 break;
             case GameState.FightGame:
                 runningGame.enabled = false;

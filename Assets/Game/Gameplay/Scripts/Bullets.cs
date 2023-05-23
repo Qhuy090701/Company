@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +33,10 @@ public class Bullets : MonoBehaviour
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
             CylindricalTrap hurtTrap = other.gameObject.GetComponent<CylindricalTrap>();
             hurtTrap.TakeDamage(damage);
+        }
+        if(other.CompareTag(Constant.TAG_FINISH))
+        {
+            ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET , gameObject);
         }
     }
 
