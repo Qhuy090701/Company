@@ -18,14 +18,19 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private BulletData bulletData;
     [SerializeField] private PlayerState currentState;
 
-    public bool shootType;
+    private RunningGame runningGame;
+    private PlayerRun playerRun;
     private float lastShotTime;
     private bool hasJumped;
     private bool isShooting;
-    public bool isShootingtype;
+
+    public bool shootType;
+    public bool isFinish;
 
     private void Awake()
     {
+        runningGame = FindObjectOfType<RunningGame>();
+        playerRun = GetComponent<PlayerRun>();
         if (bulletData == null)
         {
             string bulletName = "Bullet" + currentLevel;
@@ -67,7 +72,9 @@ public class PlayerRun : MonoBehaviour
                 break;
             case PlayerState.Jumping:
                 UpdateJumpState();
-                Debug.Log("Jump");
+                break;
+            case PlayerState.Win:
+                WinRun();
                 break;
         }
     }
@@ -94,6 +101,11 @@ public class PlayerRun : MonoBehaviour
         {
             isShooting = true;
             ShootBullet();
+        }
+
+        if (runningGame.isFinish == true)
+        {
+            currentState = PlayerState.Win;
         }
     }
 
@@ -147,7 +159,7 @@ public class PlayerRun : MonoBehaviour
                 mergedObj.transform.SetParent(parent.gameObject.transform);
                 mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
 
-               
+
 
                 Destroy(gameObject);
                 Destroy(collision.gameObject);
@@ -177,10 +189,13 @@ public class PlayerRun : MonoBehaviour
             {
                 other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x + 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
             }
+
             if (shootType == true)
             {
                 other.gameObject.GetComponent<PlayerRun>().shootType = true;
             }
+
+            SortChildObjectsByX();
         }
 
 
@@ -197,7 +212,6 @@ public class PlayerRun : MonoBehaviour
             currentState = PlayerState.Jumping;
             hasJumped = false;
             isShooting = false;
-            Debug.Log("Jump");
         }
 
         if (other.CompareTag(Constant.TAG_DEADZONE))
@@ -206,33 +220,35 @@ public class PlayerRun : MonoBehaviour
         }
     }
 
-public void LevelDownNumber()
-{
-    if (backObject == null)
+    public void LevelDownNumber()
     {
-        return;
+        if (backObject == null)
+        {
+            return;
+        }
+
+        GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
+        backObj.transform.SetParent(parent.transform);
+        backObj.gameObject.tag = Constant.TAG_PLAYER;
+        currentState = PlayerState.Moving;
+        backObj.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
     }
 
-    GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
-    backObj.transform.SetParent(parent.transform);
-    backObj.gameObject.tag = Constant.TAG_PLAYER;
-    currentState = PlayerState.Moving;
-    backObj.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
-}
-
-public void LevelUpNumber()
-{
-    if (backObject == null)
+    public void LevelUpNumber()
     {
-        return;
-    }
+        if (mergedObject == null)
+        {
+            return;
+        }
 
-    GameObject upObject = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
-    upObject.transform.SetParent(parent.transform);
-    upObject.gameObject.tag = Constant.TAG_PLAYER;
-    currentState = PlayerState.Moving;
-    upObject.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
-}
+        GameObject upObject = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
+        //debuglog up level
+        Debug.Log("up level");
+        upObject.transform.SetParent(parent.transform);
+        upObject.gameObject.tag = Constant.TAG_PLAYER;
+        currentState = PlayerState.Moving;
+        upObject.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
+    }
 
 
     public void SpeedBulletDown()
@@ -247,7 +263,7 @@ public void LevelUpNumber()
 
     public void CreateNumber()
     {
-       
+
     }
 
     public void CreateBullets()
@@ -267,24 +283,34 @@ public void LevelUpNumber()
             bulletRight.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.right * 0.1f) * (speedBullets * 10);
         }
     }
-
-    Vector3 NewCharacterPosition(int _posNumber)
+    private void SortChildObjectsByX()
     {
-        Vector3 _pos;
-        int _xPos = (_posNumber % 10 + 1) / 2;
-        int _zPos = -_posNumber / 10;
-        if (_posNumber % 2 == 0)
+        if (parent == null)
         {
-            _pos = new Vector3(_xPos + destinyPopulation / 2, 0, _zPos) * destinyPopulation;
+            parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
         }
-        else
-        {
-            if (_posNumber > 10)
-                _pos = new Vector3((_xPos) * -1 + destinyPopulation / 2, 0, _zPos) * destinyPopulation;
-            else
-                _pos = new Vector3((_xPos) * -1, 0, _zPos) * destinyPopulation;
 
+        GameObject[] childObjects = new GameObject[parent.transform.childCount];
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            childObjects[i] = parent.transform.GetChild(i).gameObject;
         }
-        return (_pos);
+        System.Array.Sort(childObjects, (obj1, obj2) => obj1.transform.position.x.CompareTo(obj2.transform.position.x));
+
+        for (int i = 0; i < childObjects.Length; i++)
+        {
+            Vector3 newPosition = new Vector3(
+                childObjects[0].transform.position.x + (3.5f * i),
+                childObjects[0].transform.position.y,
+                childObjects[0].transform.position.z
+            );
+            childObjects[i].transform.position = newPosition;
+        }
+    }
+
+    private void WinRun()
+    {
+        playerRun.enabled = false;
     }
 }
+

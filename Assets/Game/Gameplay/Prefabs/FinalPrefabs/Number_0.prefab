@@ -119,7 +119,8 @@ MonoBehaviour:
   attackPoint: {fileID: 9217885439876208801}
   bulletData: {fileID: 11400000, guid: 38b64548a980518498de34f44bbdab8a, type: 2}
   currentState: 1
-  isShootingtype: 0
+  shootType: 0
+  isFinish: 0
 --- !u!1 &9217885441276136796
 GameObject:
   m_ObjectHideFlags: 0

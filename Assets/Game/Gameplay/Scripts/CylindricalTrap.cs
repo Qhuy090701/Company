@@ -22,7 +22,7 @@ public class CylindricalTrap: MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Instantiate(itemPrefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
+           // Instantiate(itemPrefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
             Destroy(gameObject);
         }
     }

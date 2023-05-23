@@ -1,18 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 public class GamePlay : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameState currentState;
+    private RunningGame runningGame;
+
+    private FightGame fightGame;
+    private enum GameState
     {
-        
+        RunGame,
+        FightGame,
+    }
+    private void Awake()
+    {
+        runningGame = GetComponent<RunningGame>();
+        fightGame = GetComponent<FightGame>();
+    }
+    private void Start()
+    {
+        currentState = GameState.RunGame;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        switch(currentState)
+        {
+            case GameState.RunGame:
+                runningGame.enabled = true;
+                fightGame.enabled = false;
+                break;
+            case GameState.FightGame:
+                runningGame.enabled = false;
+                fightGame.enabled = true;
+                break;
+        }
     }
 }

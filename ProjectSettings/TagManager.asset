@@ -13,6 +13,7 @@ TagManager:
   - DeadZone
   - StartPoint
   - Gate
+  - FinishPoint
   layers:
   - Default
   - TransparentFX

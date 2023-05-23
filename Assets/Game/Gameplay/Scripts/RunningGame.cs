@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +6,18 @@ public class RunningGame : MonoBehaviour
 {
     [SerializeField] private float speedTouch = 5f;
     [SerializeField] private float swipeThreshold = 20f;
-    //public List<RunningGame> runningGames = new List<RunningGame>();
 
     private PlayerControllerState currentState;
-    private RunningGame runningGame;
+
 
     private Vector3 startPosition;
     private Vector3 endPosition;
 
     private bool isMovingLeft = false;
     private bool isMovingRight = false;
+    public bool isFinish = false;
+
+
     private enum PlayerControllerState
     {
         StartGame,
@@ -25,11 +27,9 @@ public class RunningGame : MonoBehaviour
 
     private void Start()
     {
-        //transform.position = startPoint.position;
         currentState = PlayerControllerState.StartGame;
-        //getcomponent player controller 
-        runningGame = GetComponent<RunningGame>();
     }
+
     private void Update()
     {
         switch (currentState)
@@ -43,8 +43,14 @@ public class RunningGame : MonoBehaviour
             case PlayerControllerState.RunGame:
                 TouchMove();
                 Move();
+                if (isFinish)
+                {
+                    currentState = PlayerControllerState.EndGame;
+                }
                 break;
+
             case PlayerControllerState.EndGame:
+                Debug.Log("End Game Run");
                 break;
         }
     }
@@ -95,6 +101,15 @@ public class RunningGame : MonoBehaviour
         else if (isMovingRight)
         {
             transform.position += Vector3.right * speedTouch * Time.deltaTime;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(Constant.TAG_FINISH))
+        {
+            isFinish = true;
+            return;
         }
     }
 }

@@ -40,7 +40,7 @@ public class Bullets : MonoBehaviour
         damage = bulletData.damage;
         size = bulletData.size;
         material = bulletData.material;
-        Debug.Log("Bullet Properties: " + damage + "  " + size + " " + material);
+        //Debug.Log("Bullet Properties: " + damage + "  " + size + " " + material);
 
         transform.localScale = Vector3.one * size;
         sphereRenderer.material = material;
