@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4852251156017808805}
   - component: {fileID: 4852251156017808806}
   - component: {fileID: 4852251156017808807}
-  - component: {fileID: 4430014631373018813}
+  - component: {fileID: -2390022677998630283}
   m_Layer: 0
   m_Name: Number_1
   m_TagString: Number
@@ -83,14 +83,14 @@ MonoBehaviour:
   backObject: {fileID: 9217885441206360667, guid: 6f2a3df3be7cd3f4cb096fa40cf03c66, type: 3}
   parent: {fileID: 0}
   currentLevel: 1
-  speedMove: 0
   speedBullets: 10
   jumpForce: 5
   shottime: 0.1
   attackPoint: {fileID: 4852251156619968409}
   bulletData: {fileID: 0}
   currentState: 1
---- !u!114 &4430014631373018813
+  shootType: 0
+--- !u!114 &-2390022677998630283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,11 +99,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4852251156017808800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061ba3ddcf3690c4ba1acd2435eb92ef, type: 3}
+  m_Script: {fileID: 11500000, guid: 5303c7650c8da144c80031edf03f5ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: 0
-  scripts: {fileID: 4852251156017808807}
+  playerFightState: 0
+  moveSpeed: 5
 --- !u!1 &4852251156619968410
 GameObject:
   m_ObjectHideFlags: 0

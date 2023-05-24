@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PosMatrix : MonoBehaviour
 {
-    private bool isHavePlayer;
+    public bool isHavePlayer;
 
     private void OnTriggerEnter(Collider other)
     {

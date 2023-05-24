@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 543169013973917174}
   - component: {fileID: 543169013973917175}
   - component: {fileID: 543169013973917172}
+  - component: {fileID: -8442762087348070755}
   m_Layer: 0
   m_Name: Number_2
   m_TagString: Number
@@ -179,13 +180,27 @@ MonoBehaviour:
   backObject: {fileID: 4852251156017808800, guid: 6ea564349fc9cb1438d889da9ee4c466, type: 3}
   parent: {fileID: 0}
   currentLevel: 2
-  speedMove: 0
   speedBullets: 10
   jumpForce: 5
   shottime: 0.1
   attackPoint: {fileID: 543169014929945163}
   bulletData: {fileID: 0}
   currentState: 1
+  shootType: 0
+--- !u!114 &-8442762087348070755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543169013973917173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5303c7650c8da144c80031edf03f5ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerFightState: 0
+  moveSpeed: 5
 --- !u!1 &543169014929945160
 GameObject:
   m_ObjectHideFlags: 0

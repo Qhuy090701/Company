@@ -4,15 +4,55 @@ using UnityEngine;
 
 public class FightGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Transform> listPosition = new List<Transform>();
+    public bool isFinish = false;
+    public PlayerFight playerFight;
+
+
+    [SerializeField] private FightState fightState;
+    private enum FightState
     {
-        
+        move,
+        shoot,
+        end
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        playerFight = FindObjectOfType<PlayerFight>();
+    }
+
+    private void Start()
+    {
+        if (isFinish)
+        {
+            playerFight.enabled = false;
+        }
+    }
+
+    private void Update()
+    {
+        switch (fightState)
+        {
+            case FightState.move:
+                //Move();
+                break;
+            case FightState.shoot:
+                //Shoot();
+                break;
+            case FightState.end:
+                //End();
+                break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(Constant.TAG_FINISH))
+        {
+            Debug.Log("va cham");
+            isFinish = true;
+            playerFight.enabled = true;
+        }
     }
 }

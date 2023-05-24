@@ -25,7 +25,6 @@ public class PlayerRun : MonoBehaviour
     private bool isShooting;
 
     public bool shootType;
-    public bool isFinish;
 
     private void Awake()
     {
@@ -123,7 +122,6 @@ public class PlayerRun : MonoBehaviour
                 CreateBullets();
             }
         }
-
     }
 
 

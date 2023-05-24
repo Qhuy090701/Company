@@ -7,7 +7,6 @@ public class GamePlay : MonoBehaviour
 {
     [SerializeField] private GameState currentState;
     private RunningGame runningGame;
-
     private FightGame fightGame;
     private enum GameState
     {
@@ -29,12 +28,12 @@ public class GamePlay : MonoBehaviour
         switch(currentState)
         {
             case GameState.RunGame:
-                runningGame.enabled = true;
-                //fightGame.enabled = false;
+                //runningGame.enabled = true;
+                //fightGame.enabled = true;
                 break;
             case GameState.FightGame:
-                runningGame.enabled = false;
-                fightGame.enabled = true;
+                //runningGame.enabled = false;
+                //fightGame.enabled = true;
                 break;
         }
     }
