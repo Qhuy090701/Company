@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFightState: 0
   moveSpeed: 5
+  currentTarget: {fileID: 0}
 --- !u!1 &543169014929945160
 GameObject:
   m_ObjectHideFlags: 0

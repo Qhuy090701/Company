@@ -5,7 +5,6 @@ using UnityEngine;
 public class FightGame : MonoBehaviour
 {
     public List<Transform> listPosition = new List<Transform>();
-    public bool isFinish = false;
     public PlayerFight playerFight;
 
 
@@ -19,15 +18,16 @@ public class FightGame : MonoBehaviour
 
     private void Awake()
     {
+        //findobject nam playerfight
         playerFight = FindObjectOfType<PlayerFight>();
     }
-
     private void Start()
     {
-        if (isFinish)
-        {
-            playerFight.enabled = false;
-        }
+        playerFight.enabled = true;
+        //if (isFinish)
+        //{
+        //    playerFight.enabled = false;
+        //}
     }
 
     private void Update()
@@ -50,9 +50,12 @@ public class FightGame : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Constant.TAG_FINISH))
         {
-            Debug.Log("va cham");
-            isFinish = true;
-            playerFight.enabled = true;
+            Debug.Log("va chammmmmmmmmmm");
+            //isFinish = true;
+            //if(isFinish == true)
+            //{
+            //playerFight.enabled = true;
+            //}
         }
     }
 }

@@ -22,7 +22,7 @@ public class PlayerRun : MonoBehaviour
     private PlayerRun playerRun;
     private float lastShotTime;
     private bool hasJumped;
-    private bool isShooting;
+    public bool isShooting;
 
     public bool shootType;
 
@@ -99,7 +99,10 @@ public class PlayerRun : MonoBehaviour
         if (currentState == PlayerState.Moving)
         {
             isShooting = true;
-            ShootBullet();
+            if(isShooting == true)
+            {
+                ShootBullet();
+            }
         }
 
         if (runningGame.isFinish == true)
@@ -309,6 +312,8 @@ public class PlayerRun : MonoBehaviour
     private void WinRun()
     {
         playerRun.enabled = false;
+        isShooting = false;
+        return;
     }
 }
 

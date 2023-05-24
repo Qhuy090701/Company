@@ -15,6 +15,7 @@ public class PlayerFight : MonoBehaviour
 
     private enum PlayerFightState
     {
+        PlayerWait,
         PlayerMove,
         StopMove,
         EndGame
@@ -23,7 +24,7 @@ public class PlayerFight : MonoBehaviour
     private void Awake()
     {
         playerFight = GetComponent<PlayerFight>();
-        playerFight.enabled = false;
+        //playerFight.enabled = false;
     }
 
     private void Start()
@@ -32,7 +33,7 @@ public class PlayerFight : MonoBehaviour
 
         if (fightGame != null && fightGame.listPosition.Count > 0)
         {
-            playerFightState = PlayerFightState.PlayerMove;
+            playerFightState = PlayerFightState.PlayerWait;
             currentTarget = fightGame.listPosition[Random.Range(0, fightGame.listPosition.Count)];
         }
         else
@@ -45,6 +46,9 @@ public class PlayerFight : MonoBehaviour
     {
         switch (playerFightState)
         {
+            case PlayerFightState.PlayerWait:
+
+                break;
             case PlayerFightState.PlayerMove:
                 PlayerMove();
                 break;
@@ -122,5 +126,14 @@ public class PlayerFight : MonoBehaviour
     private void EndGame()
     {
         Debug.Log("Game over!");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag(Constant.TAG_FINISH))
+        {
+            Debug.Log("block wall");
+            playerFightState = PlayerFightState.PlayerMove;
+        }
     }
 }

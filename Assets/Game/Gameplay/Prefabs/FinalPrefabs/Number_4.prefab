@@ -232,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFightState: 0
   moveSpeed: 5
+  currentTarget: {fileID: 0}
 --- !u!1001 &4316266319857331852
 PrefabInstance:
   m_ObjectHideFlags: 0
