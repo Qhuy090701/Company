@@ -8,7 +8,7 @@ public class RunningGame : MonoBehaviour
     [SerializeField] private float swipeThreshold = 20f;
 
     private PlayerControllerState currentState;
-
+    private PlayerRun playerRun;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -28,6 +28,7 @@ public class RunningGame : MonoBehaviour
     private void Start()
     {
         currentState = PlayerControllerState.StartGame;
+        playerRun =  FindObjectOfType<PlayerRun>();
     }
 
     private void Update()
@@ -46,6 +47,7 @@ public class RunningGame : MonoBehaviour
                 if (isFinish)
                 {
                     currentState = PlayerControllerState.EndGame;
+                    return;
                 }
                 break;
 

@@ -99,10 +99,11 @@ public class PlayerRun : MonoBehaviour
         if (currentState == PlayerState.Moving)
         {
             isShooting = true;
-            if(isShooting == true)
-            {
-                ShootBullet();
-            }
+        }
+
+        if (isShooting == true)
+        {
+            ShootBullet();
         }
 
         if (runningGame.isFinish == true)
@@ -110,6 +111,7 @@ public class PlayerRun : MonoBehaviour
             currentState = PlayerState.Win;
         }
     }
+
 
     public void ShootBullet()
     {
@@ -146,79 +148,85 @@ public class PlayerRun : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag(Constant.TAG_PLAYER))
+        if (runningGame.isFinish == false)
         {
-            var merge = collision.gameObject.GetComponent<PlayerRun>();
-            if (merge != null && merge.currentLevel == currentLevel && GetInstanceID() >= merge.GetInstanceID())
+            if (collision.gameObject.CompareTag(Constant.TAG_PLAYER))
             {
-                if (parent == null)
+                var merge = collision.gameObject.GetComponent<PlayerRun>();
+                if (merge != null && merge.currentLevel == currentLevel && GetInstanceID() >= merge.GetInstanceID())
                 {
-                    parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
+                    if (parent == null)
+                    {
+                        parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
+                    }
+
+                    GameObject mergedObj = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
+                    mergedObj.transform.SetParent(parent.gameObject.transform);
+                    mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
+
+
+
+                    Destroy(gameObject);
+                    Destroy(collision.gameObject);
+
+                    float distance = Mathf.Abs(merge.transform.position.x - mergedObj.transform.position.x);
+                    mergedObj.transform.position = new Vector3(
+                        merge.transform.position.x + (mergedObj.transform.position.x > merge.transform.position.x ? distance : -distance),
+                        merge.transform.position.y,
+                        merge.transform.position.z);
+
+                    mergedObj.gameObject.tag = Constant.TAG_PLAYER;
                 }
-
-                GameObject mergedObj = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
-                mergedObj.transform.SetParent(parent.gameObject.transform);
-                mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
-
-
-
-                Destroy(gameObject);
-                Destroy(collision.gameObject);
-
-                float distance = Mathf.Abs(merge.transform.position.x - mergedObj.transform.position.x);
-                mergedObj.transform.position = new Vector3(
-                    merge.transform.position.x + (mergedObj.transform.position.x > merge.transform.position.x ? distance : -distance),
-                    merge.transform.position.y,
-                    merge.transform.position.z);
-
-                mergedObj.gameObject.tag = Constant.TAG_PLAYER;
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(Constant.TAG_NUMBER))
+        if (runningGame.isFinish == false)
         {
-            other.gameObject.transform.parent = parent.transform;
-            other.gameObject.tag = Constant.TAG_PLAYER;
-
-            if (other.gameObject.transform.position.x < gameObject.transform.position.x)
+            if (other.gameObject.CompareTag(Constant.TAG_NUMBER))
             {
-                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x - 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
+                other.gameObject.transform.parent = parent.transform;
+                other.gameObject.tag = Constant.TAG_PLAYER;
+
+                if (other.gameObject.transform.position.x < gameObject.transform.position.x)
+                {
+                    other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x - 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
+                }
+                else
+                {
+                    other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x + 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
+                }
+
+                if (shootType == true)
+                {
+                    other.gameObject.GetComponent<PlayerRun>().shootType = true;
+                }
+
+                SortChildObjectsByX();
             }
-            else
+
+            if (other.CompareTag(Constant.TAG_COLUMN) || other.CompareTag(Constant.TAG_TRAP))
             {
-                other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x + 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+                other.gameObject.tag = Constant.TAG_PLAYER;
+                LevelDownNumber();
             }
 
-            if (shootType == true)
+            if (other.CompareTag(Constant.TAG_JUMPPOINT))
             {
-                other.gameObject.GetComponent<PlayerRun>().shootType = true;
+                currentState = PlayerState.Jumping;
+                hasJumped = false;
+                isShooting = false;
             }
 
-            SortChildObjectsByX();
+            if (other.CompareTag(Constant.TAG_DEADZONE))
+            {
+                Destroy(gameObject);
+            }
         }
 
-
-        if (other.CompareTag(Constant.TAG_COLUMN) || other.CompareTag(Constant.TAG_TRAP))
-        {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-            other.gameObject.tag = Constant.TAG_PLAYER;
-            LevelDownNumber();
-        }
-
-        if (other.CompareTag(Constant.TAG_JUMPPOINT))
-        {
-            currentState = PlayerState.Jumping;
-            hasJumped = false;
-            isShooting = false;
-        }
-
-        if (other.CompareTag(Constant.TAG_DEADZONE))
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void LevelDownNumber()

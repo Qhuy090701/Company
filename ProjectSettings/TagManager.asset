@@ -14,6 +14,7 @@ TagManager:
   - StartPoint
   - Gate
   - FinishPoint
+  - Matrix
   layers:
   - Default
   - TransparentFX

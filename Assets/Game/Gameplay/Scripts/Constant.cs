@@ -11,4 +11,5 @@ public static class Constant
     public const string TAG_STARTPOINT = "StartPoint";
     public const string TAG_GATE = "Gate";
     public const string TAG_FINISH = "FinishPoint";
+    public const string TAG_MATRIX = "Matrix";
 }
