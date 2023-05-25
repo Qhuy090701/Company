@@ -11,6 +11,7 @@ public class PlayerFight : MonoBehaviour
 
     private FightGame fightGame;
     private PlayerFight playerFight;
+    private PlayerRun playerRun;
     [SerializeField] private Transform currentTarget;
 
     private enum PlayerFightState
@@ -23,6 +24,7 @@ public class PlayerFight : MonoBehaviour
 
     private void Awake()
     {
+        playerRun = GetComponent<PlayerRun>();
         playerFight = GetComponent<PlayerFight>();
         //playerFight.enabled = false;
     }
@@ -47,10 +49,21 @@ public class PlayerFight : MonoBehaviour
         switch (playerFightState)
         {
             case PlayerFightState.PlayerWait:
-                if(fightGame.isFinish == true)
+                //nếu tag của nó là player và fightgame.isfinish = true thì chuyển sate sang player move;
+                if (gameObject.CompareTag(Constant.TAG_PLAYER) && fightGame.isFinish == true)
                 {
                     playerFightState = PlayerFightState.PlayerMove;
                 }
+                else
+                {
+                    playerFightState = PlayerFightState.PlayerWait;
+                }
+
+
+                //if(fightGame.isFinish == true)
+                //{
+                //    playerFightState = PlayerFightState.PlayerMove;
+                //}
                 break;
             case PlayerFightState.PlayerMove:
                 PlayerMove();

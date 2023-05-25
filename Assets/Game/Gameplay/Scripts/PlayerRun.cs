@@ -23,7 +23,6 @@ public class PlayerRun : MonoBehaviour
     private float lastShotTime;
     private bool hasJumped;
     public bool isShooting;
-
     public bool shootType;
 
     private void Awake()
