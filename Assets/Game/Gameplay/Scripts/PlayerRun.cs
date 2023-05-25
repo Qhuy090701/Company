@@ -143,7 +143,7 @@ public class PlayerRun : MonoBehaviour
 
     private void Jump()
     {
-        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce , ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)

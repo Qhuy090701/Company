@@ -47,7 +47,10 @@ public class PlayerFight : MonoBehaviour
         switch (playerFightState)
         {
             case PlayerFightState.PlayerWait:
-
+                if(fightGame.isFinish == true)
+                {
+                    playerFightState = PlayerFightState.PlayerMove;
+                }
                 break;
             case PlayerFightState.PlayerMove:
                 PlayerMove();
@@ -61,8 +64,6 @@ public class PlayerFight : MonoBehaviour
                 break;
         }
     }
-
-
 
     private void PlayerMove()
     {
@@ -94,7 +95,7 @@ public class PlayerFight : MonoBehaviour
 
     private Transform GetNewTarget()
     {
-        List<Transform> availablePositions = new List<Transform>();
+        HashSet<Transform> availablePositions = new HashSet<Transform>();
 
         foreach (Transform position in fightGame.listPosition)
         {
@@ -107,7 +108,9 @@ public class PlayerFight : MonoBehaviour
 
         if (availablePositions.Count > 0)
         {
-            return availablePositions[Random.Range(0, availablePositions.Count)];
+            Transform[] availablePositionsArray = new Transform[availablePositions.Count];
+            availablePositions.CopyTo(availablePositionsArray);
+            return availablePositionsArray[Random.Range(0, availablePositionsArray.Length)];
         }
 
         // Nếu không còn vị trí trống, trả về vị trí hiện tại làm mục tiêu

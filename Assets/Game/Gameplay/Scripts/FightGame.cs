@@ -6,7 +6,7 @@ public class FightGame : MonoBehaviour
 {
     public List<Transform> listPosition = new List<Transform>();
     public PlayerFight playerFight;
-
+    public bool isFinish;
 
     [SerializeField] private FightState fightState;
     private enum FightState
@@ -51,7 +51,7 @@ public class FightGame : MonoBehaviour
         if (other.gameObject.CompareTag(Constant.TAG_FINISH))
         {
             Debug.Log("va chammmmmmmmmmm");
-            //isFinish = true;
+            isFinish = true;
             //if(isFinish == true)
             //{
             //playerFight.enabled = true;

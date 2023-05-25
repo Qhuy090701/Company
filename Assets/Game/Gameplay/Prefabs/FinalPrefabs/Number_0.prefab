@@ -80,8 +80,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.377306, y: 5.4266844, z: 1}
-  m_Center: {x: 0, y: 2.6398153, z: 0}
+  m_Size: {x: 4.530258, y: 5.4266844, z: 1}
+  m_Center: {x: -0.0764761, y: 2.6398153, z: 0}
 --- !u!54 &9217885441206360663
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -115,11 +115,12 @@ MonoBehaviour:
   parent: {fileID: 0}
   currentLevel: 0
   speedBullets: 10
-  jumpForce: 5
+  jumpForce: 15
   shottime: 0.1
   attackPoint: {fileID: 9217885439876208801}
   bulletData: {fileID: 11400000, guid: 38b64548a980518498de34f44bbdab8a, type: 2}
   currentState: 1
+  isShooting: 0
   shootType: 0
 --- !u!114 &1966317849424017777
 MonoBehaviour:
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFightState: 0
-  moveSpeed: 5
+  moveSpeed: 15
   currentTarget: {fileID: 0}
 --- !u!1 &9217885441276136796
 GameObject:
@@ -148,6 +149,8 @@ GameObject:
   - component: {fileID: 9217885441276136792}
   - component: {fileID: 9217885441276136799}
   - component: {fileID: 9217885441276136793}
+  - component: {fileID: 4615411653883923585}
+  - component: {fileID: 6269167908517018687}
   m_Layer: 0
   m_Name: BoxCheck
   m_TagString: Untagged
@@ -228,11 +231,37 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9217885441276136796}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.377306, y: 5.4266844, z: 1}
-  m_Center: {x: 0, y: 2.6398153, z: 0}
+  m_Size: {x: 4.530258, y: 5.4266844, z: 1}
+  m_Center: {x: -0.0764761, y: 2.6398153, z: 0}
+--- !u!65 &4615411653883923585
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217885441276136796}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.530258, y: 5.4266844, z: 1}
+  m_Center: {x: -0.0764761, y: 2.6398153, z: 0}
+--- !u!65 &6269167908517018687
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217885441276136796}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.530258, y: 5.4266844, z: 1}
+  m_Center: {x: -0.0764761, y: 2.6398153, z: 0}
 --- !u!1001 &2720219999120032599
 PrefabInstance:
   m_ObjectHideFlags: 0

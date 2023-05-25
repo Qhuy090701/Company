@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8432992, y: 1.0955224, z: 1}
-  m_Center: {x: 0.036113206, y: -0.04776155, z: 0}
+  m_Size: {x: 1.0145582, y: 1.0939324, z: 1}
+  m_Center: {x: -0.04951641, y: -0.051629014, z: 0}
 --- !u!1 &4604535506263702104
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,8 +146,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.5652943, y: 5.462503, z: 1}
-  m_Center: {x: 0.040328026, y: 2.686229, z: 0}
+  m_Size: {x: 4.168148, y: 5.4266844, z: 1}
+  m_Center: {x: -0.25753117, y: 2.6398153, z: 0}
 --- !u!54 &4604535506263702106
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -181,11 +181,12 @@ MonoBehaviour:
   parent: {fileID: 0}
   currentLevel: 3
   speedBullets: 10
-  jumpForce: 5
+  jumpForce: 15
   shottime: 0.1
   attackPoint: {fileID: 4604535507016200542}
   bulletData: {fileID: 0}
   currentState: 1
+  isShooting: 0
   shootType: 0
 --- !u!114 &-4595934740436411563
 MonoBehaviour:
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFightState: 0
-  moveSpeed: 5
+  moveSpeed: 15
   currentTarget: {fileID: 0}
 --- !u!1 &4604535507016200541
 GameObject:

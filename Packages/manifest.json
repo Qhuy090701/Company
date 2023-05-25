@@ -2,6 +2,7 @@
   "dependencies": {
     "com.funzilla.marketing-utils": "1.0.3",
     "com.funzilla.simple-tweens": "1.0.5",
+    "com.funzilla.toon-water": "1.4.3",
     "com.funzilla.toony-shaders": "2.8.2",
     "com.gameanalytics.sdk": "7.5.0",
     "com.google.firebase.analytics": "9.5.0",

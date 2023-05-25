@@ -49,8 +49,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.605467, y: 5.462503, z: 1}
-  m_Center: {x: -0.31606424, y: 2.686229, z: 0}
+  m_Size: {x: 3.8460498, y: 5.4445267, z: 1}
+  m_Center: {x: -0.4185803, y: 2.669352, z: 0}
 --- !u!54 &1687321247780850029
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84,11 +84,12 @@ MonoBehaviour:
   parent: {fileID: 0}
   currentLevel: 5
   speedBullets: 10
-  jumpForce: 5
+  jumpForce: 15
   shottime: 0.1
   attackPoint: {fileID: 1687321248977915558}
   bulletData: {fileID: 0}
   currentState: 1
+  isShooting: 0
   shootType: 0
 --- !u!114 &3302894392970929498
 MonoBehaviour:
@@ -103,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFightState: 0
-  moveSpeed: 5
+  moveSpeed: 15
   currentTarget: {fileID: 0}
 --- !u!1 &1687321248922570261
 GameObject:
@@ -200,8 +201,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.87942135, y: 1.0955224, z: 1}
-  m_Center: {x: -0.06028939, y: -0.04776155, z: 0}
+  m_Size: {x: 0.93766826, y: 1.0955224, z: 1}
+  m_Center: {x: -0.08941293, y: -0.04776155, z: 0}
 --- !u!1 &1687321248977915553
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18d61072e887bd8488364b0f82e8d612, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.23
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18d61072e887bd8488364b0f82e8d612, type: 3}
       propertyPath: m_LocalPosition.y

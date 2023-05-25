@@ -6,11 +6,11 @@ public class SawTrap: MonoBehaviour
 {
     [SerializeField] private SawStatus currentState;
 
-    [SerializeField] private Transform pointA;
-    [SerializeField] private Transform pointB;
+    public Transform pointA;
+    public Transform pointB;
 
     private Vector3 currentPosition;
-    private Vector3 targetPosition;
+    public Vector3 targetPosition;
     private float speed = 0f;
 
 
