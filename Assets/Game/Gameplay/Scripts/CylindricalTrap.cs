@@ -1,34 +1,43 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
-public class CylindricalTrap: MonoBehaviour
+public class CylindricalTrap : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform itemSpawnPoint;
-    // [SerializeField] private Text healthText;
+    [SerializeField] private TextMesh healthText;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        // UpdateHealthText();
+        UpdateHealthText();
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        // UpdateHealthText();
+        UpdateHealthText();
 
         if (currentHealth <= 0)
         {
-           // Instantiate(itemPrefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
+            if (itemPrefab == null)
+            {
+                return;
+            }
+            else
+            {
+                Instantiate(itemPrefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
+            }
+
             Destroy(gameObject);
         }
     }
 
-    //private void UpdateHealthText()
-    //{
-    //    healthText.text = "Health: " + currentHealth.ToString();
-    //}
+    private void UpdateHealthText()
+    {
+        healthText.text =  currentHealth.ToString();
+    }
 }

@@ -15,6 +15,7 @@ TagManager:
   - Gate
   - FinishPoint
   - Matrix
+  - Money
   layers:
   - Default
   - TransparentFX
