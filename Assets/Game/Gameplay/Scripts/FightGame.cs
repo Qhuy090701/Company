@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ public class FightGame : MonoBehaviour
     [SerializeField] private FightState fightState;
     private enum FightState
     {
+        wait,
         move,
         shoot,
         end
@@ -18,30 +19,25 @@ public class FightGame : MonoBehaviour
 
     private void Awake()
     {
-        //findobject nam playerfight
         playerFight = FindObjectOfType<PlayerFight>();
     }
     private void Start()
     {
         playerFight.enabled = true;
-        //if (isFinish)
-        //{
-        //    playerFight.enabled = false;
-        //}
+        fightState = FightState.wait;
     }
 
     private void Update()
     {
         switch (fightState)
         {
+            case FightState.wait:
+                break;
             case FightState.move:
-                //Move();
                 break;
             case FightState.shoot:
-                //Shoot();
                 break;
             case FightState.end:
-                //End();
                 break;
         }
     }
@@ -50,12 +46,8 @@ public class FightGame : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Constant.TAG_FINISH))
         {
-            Debug.Log("va chammmmmmmmmmm");
             isFinish = true;
-            //if(isFinish == true)
-            //{
-            //playerFight.enabled = true;
-            //}
+            fightState = FightState.move;
         }
     }
 }

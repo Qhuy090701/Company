@@ -8,6 +8,7 @@ public class PlayerFight : MonoBehaviour
     [SerializeField] private float moveSpeed = 20f; // Tốc độ di chuyển của player
 
     private bool isMoving = false; // Trạng thái di chuyển của player
+    private bool reachedTarget = false; // Kiểm tra xem đã đạt đến vị trí chỉ định hay chưa
 
     private FightGame fightGame;
     private PlayerFight playerFight;
@@ -49,7 +50,7 @@ public class PlayerFight : MonoBehaviour
         switch (playerFightState)
         {
             case PlayerFightState.PlayerWait:
-                //nếu tag của nó là player và fightgame.isfinish = true thì chuyển sate sang player move;
+                // Kiểm tra nếu tag của nó là player và fightGame.isFinish = true thì chuyển state sang player move;
                 if (gameObject.CompareTag(Constant.TAG_PLAYER) && fightGame.isFinish == true)
                 {
                     playerFightState = PlayerFightState.PlayerMove;
@@ -58,12 +59,6 @@ public class PlayerFight : MonoBehaviour
                 {
                     playerFightState = PlayerFightState.PlayerWait;
                 }
-
-
-                //if(fightGame.isFinish == true)
-                //{
-                //    playerFightState = PlayerFightState.PlayerMove;
-                //}
                 break;
             case PlayerFightState.PlayerMove:
                 PlayerMove();
@@ -75,6 +70,37 @@ public class PlayerFight : MonoBehaviour
                 // Logic khi kết thúc trò chơi
                 EndGame();
                 break;
+        }
+
+        // Kiểm tra xem đã đạt đến vị trí chỉ định hay chưa
+        if (playerFightState == PlayerFightState.StopMove && !isMoving)
+        {
+            reachedTarget = true;
+        }
+        else
+        {
+            reachedTarget = false;
+        }
+
+        // Kiểm tra nếu tất cả các object trong parent đã đạt đến vị trí chỉ định
+        if (reachedTarget && transform.parent != null)
+        {
+            bool allObjectsReachedTarget = true;
+            foreach (Transform child in transform.parent)
+            {
+                PlayerFight childPlayerFight = child.GetComponent<PlayerFight>();
+                if (childPlayerFight != null && !childPlayerFight.reachedTarget)
+                {
+                    allObjectsReachedTarget = false;
+                    break;
+                }
+            }
+
+            if (allObjectsReachedTarget)
+            {
+                // Tất cả các object trong parent đã đạt đến vị trí chỉ định
+                Debug.Log("Tất cả các object đã đạt đến vị trí chỉ định!");
+            }
         }
     }
 
@@ -126,16 +152,12 @@ public class PlayerFight : MonoBehaviour
             return availablePositionsArray[Random.Range(0, availablePositionsArray.Length)];
         }
 
-        // Nếu không còn vị trí trống, trả về vị trí hiện tại làm mục tiêu
         return currentTarget;
     }
 
     private void StartShooting()
     {
-        // Logic của hành động bắn ở đây
-        // Ví dụ:
         Debug.Log("Player is shooting!");
-        // Chuyển trạng thái thành "shoot" nếu cần
         playerFightState = PlayerFightState.EndGame;
     }
 

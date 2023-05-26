@@ -12,7 +12,7 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private float speedBullets = 10f;
     [SerializeField] private float jumpForce = 30f;
     [SerializeField] private float shottime = 0.1f;
-
+    [SerializeField] private float objectSpacing = 2.0f;
     [SerializeField] private Transform attackPoint;
 
     [SerializeField] private BulletData bulletData;
@@ -169,12 +169,6 @@ public class PlayerRun : MonoBehaviour
 
                     Destroy(gameObject);
                     Destroy(collision.gameObject);
-
-                    float distance = Mathf.Abs(merge.transform.position.x - mergedObj.transform.position.x);
-                    mergedObj.transform.position = new Vector3(
-                        merge.transform.position.x + (mergedObj.transform.position.x > merge.transform.position.x ? distance : -distance),
-                        merge.transform.position.y,
-                        merge.transform.position.z);
 
                     mergedObj.gameObject.tag = Constant.TAG_PLAYER;
                 }

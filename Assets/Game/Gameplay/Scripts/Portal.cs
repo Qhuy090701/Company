@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
         {
             playerRun = GetComponent<PlayerRun>();
         }
-        textName.text = portalState.ToString(); // Sử dụng giá trị enum hiện tại để đặt textName
+        textName.text = portalState.ToString(); 
     }
 
     private enum PortalState
@@ -23,7 +23,6 @@ public class Portal : MonoBehaviour
         LevelDown,
         SpeedBulletDown,
         SpeedBulletUp,
-        CreateNumber,
         CreateBullet
     }
 
@@ -55,11 +54,6 @@ public class Portal : MonoBehaviour
                     Destroy(gameObject);
                     other.gameObject.tag = Constant.TAG_PLAYER;
                     player.SpeedBulletDown();
-                    break;
-                case PortalState.CreateNumber:
-                    Destroy(gameObject);
-                    GameObject number = Instantiate(createNumber0, gameObject.transform.position, Quaternion.identity);
-                    number.transform.SetParent(playerRun.parent.transform);
                     break;
                 case PortalState.CreateBullet:
                     Destroy(gameObject);
