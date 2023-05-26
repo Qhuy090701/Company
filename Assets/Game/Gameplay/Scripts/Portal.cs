@@ -6,12 +6,15 @@ public class Portal : MonoBehaviour
     [SerializeField] private PortalState portalState;
     private PlayerRun playerRun;
 
+    [SerializeField] private TextMesh textName;
+
     private void Start()
     {
-        if(playerRun = null)
+        if (playerRun == null)
         {
             playerRun = GetComponent<PlayerRun>();
-        }    
+        }
+        textName.text = portalState.ToString(); // Sử dụng giá trị enum hiện tại để đặt textName
     }
 
     private enum PortalState
