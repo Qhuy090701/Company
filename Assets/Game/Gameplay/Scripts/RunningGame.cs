@@ -13,10 +13,11 @@ public class RunningGame : MonoBehaviour
     private Vector3 startPosition;
     private Vector3 endPosition;
 
-    private bool isMovingLeft = false;
-    private bool isMovingRight = false;
+    private bool isSwipingAndHolding = false; // Biến để kiểm tra xem người dùng đã vuốt và giữ chuột hay không
     public bool isFinish = false;
 
+    public float canvasWidth = 1080;
+    public float canvasHeight;
 
     private enum PlayerControllerState
     {
@@ -28,7 +29,13 @@ public class RunningGame : MonoBehaviour
     private void Start()
     {
         currentState = PlayerControllerState.StartGame;
-        playerRun =  FindObjectOfType<PlayerRun>();
+        playerRun = FindObjectOfType<PlayerRun>();
+
+        // Lấy kích thước của Canvas
+        Canvas canvas = FindObjectOfType<Canvas>();
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        canvasWidth = canvasRect.rect.width;
+        canvasHeight = canvasRect.rect.height;
     }
 
     private void Update()
@@ -67,9 +74,15 @@ public class RunningGame : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             startPosition = Input.mousePosition;
+            isSwipingAndHolding = true; // Bắt đầu vuốt và giữ chuột
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonUp(0))
+        {
+            isSwipingAndHolding = false; // Ngừng vuốt và giữ chuột
+        }
+
+        if (isSwipingAndHolding)
         {
             endPosition = Input.mousePosition;
             float distance = Vector3.Distance(startPosition, endPosition);
@@ -80,30 +93,27 @@ public class RunningGame : MonoBehaviour
 
                 if (direction.x > 0)
                 {
-                    isMovingRight = true;
-                    isMovingLeft = false;
+                    transform.position += Vector3.right * speedTouch * Time.deltaTime;
                 }
                 else
                 {
-                    isMovingLeft = true;
-                    isMovingRight = false;
+                    transform.position += Vector3.left * speedTouch * Time.deltaTime;
                 }
-            }
-            else
-            {
-                isMovingLeft = false;
-                isMovingRight = false;
             }
         }
 
-        if (isMovingLeft)
-        {
-            transform.position += Vector3.left * speedTouch * Time.deltaTime;
-        }
-        else if (isMovingRight)
-        {
-            transform.position += Vector3.right * speedTouch * Time.deltaTime;
-        }
+        // Get the current position of the object
+        Vector3 currentPosition = transform.position;
+
+        // Calculate the boundaries of the canvas
+        float minX = -canvasWidth / 2f;
+        float maxX = canvasWidth / 2f;
+
+        // Clamp the player position within the canvas boundaries
+        currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
+
+        // Update the player position
+        transform.position = currentPosition;
     }
 
     private void OnTriggerEnter(Collider other)
