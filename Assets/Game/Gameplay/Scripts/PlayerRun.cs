@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
-
 public class PlayerRun : MonoBehaviour
 {
     [SerializeField] private GameObject mergedObject;
     [SerializeField] private GameObject backObject;
+
+    public GameObject parent;
 
     [SerializeField] private int currentLevel;
 
@@ -17,7 +18,6 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private BulletData bulletData;
     [SerializeField] private PlayerState currentState;
 
-    private GamePlay gamePlay;
     private RunningGame runningGame;
     private PlayerRun playerRun;
     private float lastShotTime;
@@ -39,10 +39,9 @@ public class PlayerRun : MonoBehaviour
     private void Start()
     {
         isShooting = false;
-        GameObject parentObject = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
-        if (parentObject != null)
+        if (parent == null)
         {
-            gamePlay = parentObject.GetComponent<GamePlay>();
+            parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
         }
     }
 
@@ -88,7 +87,7 @@ public class PlayerRun : MonoBehaviour
 
     private void UpdateWaitState()
     {
-        if (gamePlay != null && transform.parent == gamePlay.parent.transform)
+        if (transform.parent == parent.transform)
         {
             currentState = PlayerState.Moving;
         }
@@ -106,11 +105,12 @@ public class PlayerRun : MonoBehaviour
             ShootBullet();
         }
 
-        if (runningGame != null && runningGame.isFinish == true)
+        if (runningGame.isFinish == true)
         {
             currentState = PlayerState.Win;
         }
     }
+
 
     public void ShootBullet()
     {
@@ -128,6 +128,7 @@ public class PlayerRun : MonoBehaviour
         }
     }
 
+
     private void UpdateJumpState()
     {
         if (!hasJumped)
@@ -141,65 +142,63 @@ public class PlayerRun : MonoBehaviour
 
     private void Jump()
     {
-        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce , ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (runningGame != null && runningGame.isFinish == false)
+        if (runningGame.isFinish == false)
         {
             if (collision.gameObject.CompareTag(Constant.TAG_PLAYER))
             {
                 var merge = collision.gameObject.GetComponent<PlayerRun>();
                 if (merge != null && merge.currentLevel == currentLevel && GetInstanceID() >= merge.GetInstanceID())
                 {
-                    if (gamePlay == null)
+                    if (parent == null)
                     {
-                        GameObject parentObject = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
-                        if (parentObject != null)
-                        {
-                            gamePlay = parentObject.GetComponent<GamePlay>();
-                        }
+                        parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
                     }
 
                     GameObject mergedObj = Instantiate(mergedObject, merge.transform.position, Quaternion.identity);
-                    mergedObj.transform.SetParent(gamePlay.parent.gameObject.transform);
+                    mergedObj.transform.SetParent(parent.gameObject.transform);
+
+
                     mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
+
+
+
                     Destroy(gameObject);
                     Destroy(collision.gameObject);
+
                     mergedObj.gameObject.tag = Constant.TAG_PLAYER;
                 }
             }
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (runningGame != null && runningGame.isFinish == false)
+        if (runningGame.isFinish == false)
         {
             if (other.gameObject.CompareTag(Constant.TAG_NUMBER))
             {
-                if (gamePlay != null)
+                other.gameObject.transform.parent = parent.transform;
+                other.gameObject.tag = Constant.TAG_PLAYER;
+
+                if (other.gameObject.transform.position.x < gameObject.transform.position.x)
                 {
-                    other.gameObject.transform.parent = gamePlay.parent.transform;
-                    other.gameObject.tag = Constant.TAG_PLAYER;
-
-                    if (other.gameObject.transform.position.x < gameObject.transform.position.x)
-                    {
-                        other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x - 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
-                    }
-                    else
-                    {
-                        other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x + 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
-                    }
-
-                    if (shootType == true)
-                    {
-                        other.gameObject.GetComponent<PlayerRun>().shootType = true;
-                    }
-
-                    SortChildObjectsByX();
+                    other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x - 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
                 }
+                else
+                {
+                    other.gameObject.transform.position = new Vector3(other.gameObject.transform.position.x + 0.5f, gameObject.transform.position.y, gameObject.transform.position.z);
+                }
+
+                if (shootType == true)
+                {
+                    other.gameObject.GetComponent<PlayerRun>().shootType = true;
+                }
+
+                SortChildObjectsByX();
             }
 
             if (other.CompareTag(Constant.TAG_COLUMN) || other.CompareTag(Constant.TAG_TRAP))
@@ -222,6 +221,7 @@ public class PlayerRun : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
     }
 
     public void LevelDownNumber()
@@ -232,10 +232,7 @@ public class PlayerRun : MonoBehaviour
         }
 
         GameObject backObj = Instantiate(backObject, gameObject.transform.position, Quaternion.identity);
-        if (gamePlay != null)
-        {
-            backObj.transform.SetParent(gamePlay.parent.transform);
-        }
+        backObj.transform.SetParent(parent.transform);
         backObj.gameObject.tag = Constant.TAG_PLAYER;
         currentState = PlayerState.Moving;
         backObj.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
@@ -251,14 +248,12 @@ public class PlayerRun : MonoBehaviour
         GameObject upObject = Instantiate(mergedObject, gameObject.transform.position, Quaternion.identity);
         //debuglog up level
         Debug.Log("up level");
-        if (gamePlay != null)
-        {
-            upObject.transform.SetParent(gamePlay.parent.transform);
-        }
+        upObject.transform.SetParent(parent.transform);
         upObject.gameObject.tag = Constant.TAG_PLAYER;
         currentState = PlayerState.Moving;
         upObject.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
     }
+
 
     public void SpeedBulletDown()
     {
@@ -292,33 +287,45 @@ public class PlayerRun : MonoBehaviour
             bulletRight.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.right * 0.1f) * (speedBullets * 10);
         }
     }
-
-    public void SortChildObjectsByX()
+    private void SortChildObjectsByX()
     {
-        if (gamePlay == null)
+        if (parent == null)
         {
-            GameObject parentObject = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
-            if (parentObject != null)
-            {
-                gamePlay = parentObject.GetComponent<GamePlay>();
-            }
+            parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
         }
 
-        if (gamePlay != null)
-        {
-            Transform parent = gamePlay.parent.transform;
-            int childCount = parent.childCount;
+        int childCount = parent.transform.childCount;
+        Transform[] childTransforms = new Transform[childCount];
 
-            for (int i = 0; i < childCount; i++)
-            {
-                GameObject child = parent.GetChild(i).gameObject;
-                child.transform.localPosition = new Vector3(i * objectSpacing, child.transform.localPosition.y, child.transform.localPosition.z);
-            }
+        // Lưu trữ tất cả các transform của các đối tượng con
+        for (int i = 0; i < childCount; i++)
+        {
+            childTransforms[i] = parent.transform.GetChild(i);
+        }
+
+        // Sắp xếp các transform theo giá trị x
+        Array.Sort(childTransforms, (t1, t2) => t1.position.x.CompareTo(t2.position.x));
+
+        float spacing = objectSpacing; // Khoảng cách giữa các đối tượng con
+
+        // Cập nhật vị trí của các đối tượng con theo thứ tự đã sắp xếp
+        for (int i = 0; i < childCount; i++)
+        {
+            Vector3 newPosition = new Vector3(
+                transform.position.x + (i * spacing),
+                transform.position.y,
+                transform.position.z
+            );
+            childTransforms[i].position = newPosition;
         }
     }
+
 
     private void WinRun()
     {
-        // Do something when the player wins
+        playerRun.enabled = false;
+        isShooting = false;
+        return;
     }
 }
+
