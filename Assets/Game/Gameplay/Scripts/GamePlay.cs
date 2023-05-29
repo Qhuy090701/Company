@@ -8,8 +8,6 @@ public class GamePlay : MonoBehaviour
     [SerializeField] private GameState currentState;
     private RunningGame runningGame;
     private FightGame fightGame;
-
-    public GameObject parent;
     private enum GameState
     {
         RunGame,
