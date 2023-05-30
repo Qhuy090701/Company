@@ -294,6 +294,7 @@ public class PlayerRun : MonoBehaviour
             parent = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT);
         }
 
+<<<<<<< HEAD
         int childCount = parent.transform.childCount;
         Transform[] childTransforms = new Transform[childCount];
 
@@ -317,6 +318,23 @@ public class PlayerRun : MonoBehaviour
                 transform.position.z
             );
             childTransforms[i].position = newPosition;
+=======
+        GameObject[] childObjects = new GameObject[parent.transform.childCount];
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            childObjects[i] = parent.transform.GetChild(i).gameObject;
+        }
+        System.Array.Sort(childObjects, (obj1, obj2) => obj1.transform.position.x.CompareTo(obj2.transform.position.x));
+
+        for (int i = 0; i < childObjects.Length; i++)
+        {
+            Vector3 newPosition = new Vector3(
+                childObjects[0].transform.position.x + (3.5f * i),
+                childObjects[0].transform.position.y,
+                childObjects[0].transform.position.z
+            );
+            childObjects[i].transform.position = newPosition;
+>>>>>>> parent of 7944334 (change)
         }
     }
 
