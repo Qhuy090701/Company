@@ -9,8 +9,9 @@ public class FightGame : MonoBehaviour
     public GameObject numberCreate;
     public bool isFinish;
 
-    private PosMatrix posmMatrix;
-    [SerializeField] private FightState fightState;
+    private int currentPositionIndex = -1;
+    private FightState fightState;
+
     private enum FightState
     {
         wait,
@@ -61,16 +62,39 @@ public class FightGame : MonoBehaviour
 
     private void CreateNumber()
     {
-        foreach (Transform position in listPosition)
+        currentPositionIndex++; // Tăng chỉ số vị trí hiện tại lên mỗi lần tạo số mới
+
+        // Kiểm tra nếu chỉ số vượt quá số lượng vị trí trong danh sách
+        if (currentPositionIndex >= listPosition.Count)
         {
-            PosMatrix posMatrix = position.GetComponent<PosMatrix>();
-            if (posMatrix != null && posMatrix.IsEmpty())
+            currentPositionIndex = 0; // Quay lại vị trí đầu tiên
+        }
+
+        Transform position = listPosition[currentPositionIndex];
+        PosMatrix posMatrix = position.GetComponent<PosMatrix>();
+
+        // Kiểm tra nếu vị trí hiện tại đã có người chơi
+        if (posMatrix != null && !posMatrix.isHavePlayer)
+        {
+            // Tìm vị trí tiếp theo không có người chơi
+            for (int i = currentPositionIndex + 1; i < listPosition.Count; i++)
             {
-                Instantiate(numberCreate, position.position, position.rotation);
-                break; // Nếu bạn chỉ muốn tạo số tại một vị trí duy nhất, bạn có thể thoát khỏi vòng lặp sau khi đã tạo số.
+                PosMatrix nextPosMatrix = listPosition[i].GetComponent<PosMatrix>();
+                if (nextPosMatrix != null && !nextPosMatrix.isHavePlayer)
+                {
+                    position = listPosition[i];
+                    posMatrix = nextPosMatrix;
+                    currentPositionIndex = i; // Cập nhật chỉ số vị trí hiện tại
+                    break;
+                }
             }
         }
+
+        // Tạo số mới tại vị trí đã chọn
+        Instantiate(numberCreate, position.position, position.rotation);
+        posMatrix.isHavePlayer = true; // Đánh dấu vị trí đã có người chơi
     }
+
 
     private void Fight()
     {
