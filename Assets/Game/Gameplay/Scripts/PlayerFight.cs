@@ -99,7 +99,11 @@ public class PlayerFight : MonoBehaviour
         isMoving = false;
         playerFightState = PlayerFightState.StopMove;
         PosMatrix posMatrix = currentTarget.GetComponent<PosMatrix>();
-        if (posMatrix.isHavePlayer)
+        if (posMatrix.IsEmpty())
+        {
+            posMatrix.isHavePlayer = true;
+        }
+        else
         {
             currentTarget = GetRandomPosition();
         }

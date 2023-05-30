@@ -8,7 +8,7 @@ public class PosMatrix : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag(Constant.TAG_PLAYER))
+        if (other.gameObject.CompareTag(Constant.TAG_PLAYER))
         {
             Debug.Log("va cham");
             isHavePlayer = true;
@@ -20,5 +20,4 @@ public class PosMatrix : MonoBehaviour
     {
         return !isHavePlayer;
     }
-
 }

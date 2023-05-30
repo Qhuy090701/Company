@@ -95,7 +95,6 @@ public class FightGame : MonoBehaviour
         posMatrix.isHavePlayer = true; // Đánh dấu vị trí đã có người chơi
     }
 
-
     private void Fight()
     {
 
