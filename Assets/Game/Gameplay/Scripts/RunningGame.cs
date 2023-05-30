@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RunningGame : MonoBehaviour
 {
     [SerializeField] private float speedTouch = 5f;
     [SerializeField] private float swipeThreshold = 20f;
+    [SerializeField] private GameObject numberStart;
 
     private PlayerControllerState currentState;
     private PlayerRun playerRun;
-
+    public GameObject parent;
     private Vector3 startPosition;
     private Vector3 endPosition;
-
+    public int count;
     private bool isSwipingAndHolding = false; // Biến để kiểm tra xem người dùng đã vuốt và giữ chuột hay không
     public bool isFinish = false;
 
@@ -28,9 +30,16 @@ public class RunningGame : MonoBehaviour
 
     private void Start()
     {
+
+        
         currentState = PlayerControllerState.StartGame;
         playerRun = FindObjectOfType<PlayerRun>();
 
+        numberStart = Instantiate(numberStart);   
+        numberStart.transform.SetParent(parent.transform);
+        numberStart.transform.localPosition = new Vector3(parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
+        //set tag = player
+        gameObject.tag = Constant.TAG_PLAYER;
         // Lấy kích thước của Canvas
         Canvas canvas = FindObjectOfType<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
@@ -40,6 +49,7 @@ public class RunningGame : MonoBehaviour
 
     private void Update()
     {
+        CheckCount();
         switch (currentState)
         {
             case PlayerControllerState.StartGame:
@@ -56,11 +66,19 @@ public class RunningGame : MonoBehaviour
                     currentState = PlayerControllerState.EndGame;
                     return;
                 }
+              
                 break;
 
             case PlayerControllerState.EndGame:
                 Debug.Log("End Game Run");
                 break;
+        }
+
+        if(count == 0)
+        {
+            //load lại scene có tên Gameplay
+            SceneManager.LoadScene("Gameplay");
+
         }
     }
 
@@ -124,4 +142,18 @@ public class RunningGame : MonoBehaviour
             return;
         }
     }
+
+    private void CheckCount()
+    {
+        count = 0;
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            GameObject child = parent.transform.GetChild(i).gameObject;
+            if (child.activeSelf)
+            {
+                count++;
+            }
+        }
+    }
+
 }

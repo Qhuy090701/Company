@@ -81,11 +81,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mergedObject: {fileID: 0}
   backObject: {fileID: 4316266319935135108, guid: 6f89ef109e1bf5648911d638f06ff2a4, type: 3}
-  parent: {fileID: 0}
   currentLevel: 5
   speedBullets: 10
   jumpForce: 15
   shottime: 0.1
+  objectSpacing: 2
   attackPoint: {fileID: 1687321248977915558}
   bulletData: {fileID: 0}
   currentState: 1

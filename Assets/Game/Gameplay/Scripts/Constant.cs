@@ -13,4 +13,5 @@ public static class Constant
     public const string TAG_FINISH = "FinishPoint";
     public const string TAG_MATRIX = "Matrix";
     public const string TAG_MONEY =  "Money";
+    public const string TAG_LINE =  "Line";
 }

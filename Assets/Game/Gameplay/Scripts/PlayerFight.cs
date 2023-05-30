@@ -33,16 +33,7 @@ public class PlayerFight : MonoBehaviour
     private void Start()
     {
         fightGame = FindObjectOfType<FightGame>();
-
-        if (fightGame != null && fightGame.listPosition.Count > 0)
-        {
-            playerFightState = PlayerFightState.PlayerWait;
-            currentTarget = fightGame.listPosition[Random.Range(0, fightGame.listPosition.Count)];
-        }
-        else
-        {
-            Debug.LogError("Missing or empty listPosition in FightGame!");
-        }
+        
     }
 
     private void Update()
@@ -82,26 +73,6 @@ public class PlayerFight : MonoBehaviour
             reachedTarget = false;
         }
 
-        // Kiểm tra nếu tất cả các object trong parent đã đạt đến vị trí chỉ định
-        if (reachedTarget && transform.parent != null)
-        {
-            bool allObjectsReachedTarget = true;
-            foreach (Transform child in transform.parent)
-            {
-                PlayerFight childPlayerFight = child.GetComponent<PlayerFight>();
-                if (childPlayerFight != null && !childPlayerFight.reachedTarget)
-                {
-                    allObjectsReachedTarget = false;
-                    break;
-                }
-            }
-
-            if (allObjectsReachedTarget)
-            {
-                // Tất cả các object trong parent đã đạt đến vị trí chỉ định
-                Debug.Log("Tất cả các object đã đạt đến vị trí chỉ định!");
-            }
-        }
     }
 
     private void PlayerMove()
@@ -170,7 +141,6 @@ public class PlayerFight : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Constant.TAG_FINISH))
         {
-            Debug.Log("block wall");
             playerFightState = PlayerFightState.PlayerMove;
         }
     }

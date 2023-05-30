@@ -10,11 +10,8 @@ public class Portal : MonoBehaviour
 
     private void Start()
     {
-        if (playerRun == null)
-        {
-            playerRun = GetComponent<PlayerRun>();
-        }
-        textName.text = portalState.ToString(); 
+        playerRun = GetComponent<PlayerRun>();
+        textName.text = portalState.ToString();
     }
 
     private enum PortalState
@@ -31,34 +28,37 @@ public class Portal : MonoBehaviour
         if (other.CompareTag(Constant.TAG_PLAYER))
         {
             PlayerRun player = other.GetComponent<PlayerRun>();
-            switch (portalState)
+            if (player != null)
             {
-                case PortalState.LevelUp:
-                    Destroy(other.gameObject);
-                    Destroy(gameObject);
-                    other.gameObject.tag = Constant.TAG_PLAYER;
-                    player.LevelUpNumber();
-                    break;
-                case PortalState.LevelDown:
-                    Destroy(other.gameObject);
-                    Destroy(gameObject);
-                    other.gameObject.tag = Constant.TAG_PLAYER;
-                    player.LevelDownNumber();
-                    break;
-                case PortalState.SpeedBulletUp:
-                    Destroy(gameObject);
-                    other.gameObject.tag = Constant.TAG_PLAYER;
-                    player.SpeedBulletUp();
-                    break;
-                case PortalState.SpeedBulletDown:
-                    Destroy(gameObject);
-                    other.gameObject.tag = Constant.TAG_PLAYER;
-                    player.SpeedBulletDown();
-                    break;
-                case PortalState.CreateBullet:
-                    Destroy(gameObject);
-                    player.shootType = true;
-                    break;
+                switch (portalState)
+                {
+                    case PortalState.LevelUp:
+                        Destroy(other.gameObject);
+                        Destroy(gameObject);
+                        other.gameObject.tag = Constant.TAG_PLAYER;
+                        player.LevelUpNumber();
+                        break;
+                    case PortalState.LevelDown:
+                        Destroy(other.gameObject);
+                        Destroy(gameObject);
+                        other.gameObject.tag = Constant.TAG_PLAYER;
+                        player.LevelDownNumber();
+                        break;
+                    case PortalState.SpeedBulletUp:
+                        Destroy(gameObject);
+                        other.gameObject.tag = Constant.TAG_PLAYER;
+                        player.SpeedBulletUp();
+                        break;
+                    case PortalState.SpeedBulletDown:
+                        Destroy(gameObject);
+                        other.gameObject.tag = Constant.TAG_PLAYER;
+                        player.SpeedBulletDown();
+                        break;
+                    case PortalState.CreateBullet:
+                        Destroy(gameObject);
+                        player.shootType = true;
+                        break;
+                }
             }
         }
     }
