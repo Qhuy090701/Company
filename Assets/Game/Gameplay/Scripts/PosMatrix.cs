@@ -15,4 +15,10 @@ public class PosMatrix : MonoBehaviour
             return;
         }
     }
+
+    public bool IsEmpty()
+    {
+        return !isHavePlayer;
+    }
+
 }

@@ -23,6 +23,8 @@ public class PlayerFight : MonoBehaviour
         EndGame
     }
 
+    private List<Transform> availablePositions;
+
     private void Awake()
     {
         playerRun = GetComponent<PlayerRun>();
@@ -33,7 +35,8 @@ public class PlayerFight : MonoBehaviour
     private void Start()
     {
         fightGame = FindObjectOfType<FightGame>();
-        
+        availablePositions = new List<Transform>(fightGame.listPosition);
+        currentTarget = GetRandomPosition();
     }
 
     private void Update()
@@ -45,6 +48,8 @@ public class PlayerFight : MonoBehaviour
                 if (gameObject.CompareTag(Constant.TAG_PLAYER) && fightGame.isFinish == true)
                 {
                     playerFightState = PlayerFightState.PlayerMove;
+                    BoxCollider boxCollider = GetComponent<BoxCollider>();
+                    boxCollider.enabled = false;
                 }
                 else
                 {
@@ -64,7 +69,7 @@ public class PlayerFight : MonoBehaviour
         }
 
         // Kiểm tra xem đã đạt đến vị trí chỉ định hay chưa
-        if (playerFightState == PlayerFightState.StopMove && !isMoving)
+        if (playerFightState == PlayerFightState.StopMove && !isMoving && Vector3.Distance(transform.position, currentTarget.position) < 0.1f)
         {
             reachedTarget = true;
         }
@@ -72,7 +77,6 @@ public class PlayerFight : MonoBehaviour
         {
             reachedTarget = false;
         }
-
     }
 
     private void PlayerMove()
@@ -94,33 +98,21 @@ public class PlayerFight : MonoBehaviour
 
         isMoving = false;
         playerFightState = PlayerFightState.StopMove;
-
-        // Kiểm tra nếu vị trí hiện tại là vị trí đã có nhân vật, thì chọn vị trí khác làm mục tiêu mới
         PosMatrix posMatrix = currentTarget.GetComponent<PosMatrix>();
         if (posMatrix.isHavePlayer)
         {
-            currentTarget = GetNewTarget();
+            currentTarget = GetRandomPosition();
         }
     }
 
-    private Transform GetNewTarget()
+    private Transform GetRandomPosition()
     {
-        HashSet<Transform> availablePositions = new HashSet<Transform>();
-
-        foreach (Transform position in fightGame.listPosition)
-        {
-            PosMatrix posMatrix = position.GetComponent<PosMatrix>();
-            if (!posMatrix.isHavePlayer)
-            {
-                availablePositions.Add(position);
-            }
-        }
-
         if (availablePositions.Count > 0)
         {
-            Transform[] availablePositionsArray = new Transform[availablePositions.Count];
-            availablePositions.CopyTo(availablePositionsArray);
-            return availablePositionsArray[Random.Range(0, availablePositionsArray.Length)];
+            int randomIndex = Random.Range(0, availablePositions.Count);
+            Transform randomPosition = availablePositions[randomIndex];
+            availablePositions.RemoveAt(randomIndex);
+            return randomPosition;
         }
 
         return currentTarget;

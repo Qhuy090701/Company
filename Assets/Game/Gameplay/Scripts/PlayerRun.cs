@@ -168,8 +168,6 @@ public class PlayerRun : MonoBehaviour
 
                     GameObject mergedObj = Instantiate(mergedObject, merge.transform.position, Quaternion.identity);
                     mergedObj.transform.SetParent(runningGame.parent.gameObject.transform);
-
-
                     mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
 
 
