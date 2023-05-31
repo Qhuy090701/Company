@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class GamePlay : MonoBehaviour
 {
-    [SerializeField] private GameState currentState;
+    public GameState currentState;
     private RunningGame runningGame;
     private FightGame fightGame;
 
     public GameObject parent;
-    private enum GameState
+    public enum GameState
     {
         RunGame,
         FightGame,
@@ -27,16 +27,29 @@ public class GamePlay : MonoBehaviour
 
     private void Update()
     {
-        switch(currentState)
+        switch (currentState)
         {
             case GameState.RunGame:
-                //runningGame.enabled = true;
-                //fightGame.enabled = true;
+                if (runningGame != null)
+                {
+                    runningGame.enabled = true;
+                }
+                if (fightGame != null)
+                {
+                    fightGame.enabled = false;
+                }
                 break;
             case GameState.FightGame:
-                //runningGame.enabled = false;
-                //fightGame.enabled = true;
+                if (runningGame != null)
+                {
+                    runningGame.enabled = false;
+                }
+                if (fightGame != null)
+                {
+                    fightGame.enabled = true;
+                }
                 break;
         }
     }
+
 }

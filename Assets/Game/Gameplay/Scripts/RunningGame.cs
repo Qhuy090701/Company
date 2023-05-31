@@ -11,6 +11,8 @@ public class RunningGame : MonoBehaviour
 
     private PlayerControllerState currentState;
     private PlayerRun playerRun;
+    private GamePlay gamePlay;
+    private CameraFollow cameraFollow;
     public GameObject parent;
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -30,15 +32,13 @@ public class RunningGame : MonoBehaviour
 
     private void Start()
     {
-
-        
         currentState = PlayerControllerState.StartGame;
         playerRun = FindObjectOfType<PlayerRun>();
-
+        gamePlay = FindObjectOfType<GamePlay>();
+        cameraFollow = FindObjectOfType<CameraFollow>();
         numberStart = Instantiate(numberStart);   
         numberStart.transform.SetParent(parent.transform);
         numberStart.transform.localPosition = new Vector3(parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
-        //set tag = player
         gameObject.tag = Constant.TAG_PLAYER;
         // Lấy kích thước của Canvas
         Canvas canvas = FindObjectOfType<Canvas>();
@@ -139,6 +139,16 @@ public class RunningGame : MonoBehaviour
         if (other.CompareTag(Constant.TAG_FINISH))
         {
             isFinish = true;
+            transform.position = new Vector3(0, transform.position.y, transform.position.z);
+            // CHUYỂN TRẠNG THÁI GAMEPLAY SANG FIGHTGAME
+
+
+            if (gamePlay != null)
+            {
+                gamePlay.currentState = GamePlay.GameState.FightGame;
+                cameraFollow.cameraState = CameraFollow.CameraState.CameraFollowFightGame;
+            }
+
             return;
         }
     }

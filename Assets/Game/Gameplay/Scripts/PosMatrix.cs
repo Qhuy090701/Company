@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +10,17 @@ public class PosMatrix : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Constant.TAG_PLAYER))
         {
-            Debug.Log("va cham");
+            Debug.Log("Va chạm");
             isHavePlayer = true;
-            return;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag(Constant.TAG_PLAYER))
+        {
+            Debug.Log("Rời khỏi");
+            isHavePlayer = false;
         }
     }
 
