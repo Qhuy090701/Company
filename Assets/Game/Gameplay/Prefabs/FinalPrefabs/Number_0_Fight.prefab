@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1966317849424017777}
   m_Layer: 3
   m_Name: Number_0_Fight
-  m_TagString: Number
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1921,7 +1921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1095e2f3227747644ab6d661daa4fd4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 5
   botstate: 0
   currenttarget: {fileID: 0}
 --- !u!114 &420507212
@@ -6220,8 +6220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb8e870e4eb8ea42a6c653b9bb1331b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 123312320
-  currentHealth: 132132310
+  maxHealth: 100000
+  currentHealth: 100000
   healthText: {fileID: 1547399198}
 --- !u!114 &1875653789
 MonoBehaviour:
@@ -6235,7 +6235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1095e2f3227747644ab6d661daa4fd4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 5
   botstate: 0
   currenttarget: {fileID: 0}
 --- !u!54 &1875653790
