@@ -12,8 +12,10 @@ public class FightGame : MonoBehaviour
 
     private int currentPositionIndex = -1;
     private FightState fightState;
-    private MoneyCanvas moneyCanvas;
+    private CanvasSetting canvasSetting;
     private int count;
+
+    public object SceneManager { get; internal set; }
 
     private enum FightState
     {
@@ -26,7 +28,7 @@ public class FightGame : MonoBehaviour
     private void Awake()
     {
         playerFight = FindObjectOfType<PlayerFight>();
-        moneyCanvas = FindObjectOfType<MoneyCanvas>();
+        canvasSetting = FindObjectOfType<CanvasSetting>();
     }
 
     private void Start()
@@ -106,7 +108,7 @@ public class FightGame : MonoBehaviour
 
         int cost = 100 * (count + 1); // Tính toán chi phí dựa trên số lần đã tạo
 
-        if (moneyCanvas.ScoreMoney >= cost)
+        if (canvasSetting.ScoreMoney >= cost)
         {
             Instantiate(numberCreate, position.position, position.rotation);
             posMatrix.isHavePlayer = true; // Đánh dấu vị trí đã có người chơi

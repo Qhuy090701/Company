@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class RunningGame : MonoBehaviour
 {
@@ -19,9 +20,10 @@ public class RunningGame : MonoBehaviour
     public int count;
     private bool isSwipingAndHolding = false; // Biến để kiểm tra xem người dùng đã vuốt và giữ chuột hay không
     public bool isFinish = false;
-
+    public bool isDie = false;
     public float canvasWidth = 1080;
     public float canvasHeight;
+    public bool istouch = true;
 
     private enum PlayerControllerState
     {
@@ -59,8 +61,12 @@ public class RunningGame : MonoBehaviour
                 }
                 break;
             case PlayerControllerState.RunGame:
-                TouchMove();
-                UpdateMove();
+                if(istouch == true)
+                {
+                    TouchMove();
+                    UpdateMove();
+                }
+                
                 if (isFinish)
                 {
                     currentState = PlayerControllerState.EndGame;
@@ -76,9 +82,9 @@ public class RunningGame : MonoBehaviour
 
         if(count == 0)
         {
-            //load lại scene có tên Gameplay
-            SceneManager.LoadScene("Gameplay");
-
+            istouch = false;
+            isDie = true;
+            return;
         }
     }
 
@@ -166,4 +172,8 @@ public class RunningGame : MonoBehaviour
         }
     }
 
+    public void ResetGame()
+    {
+        SceneManager.LoadScene("Gameplay");
+    }
 }

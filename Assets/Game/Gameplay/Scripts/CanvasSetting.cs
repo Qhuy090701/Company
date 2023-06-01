@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class MoneyCanvas : MonoBehaviour
+public class CanvasSetting : MonoBehaviour
 {
     public Text MoneyPoint;
     public int ScoreMoney;
     public Button fightGameButton;
     public Button createNumberButton;
+    public Button playAgainButton;
     private FightGame fightGame;
+    private RunningGame runningGame;
 
     private bool isFinishReached = false;
     private float finishReachedTime = 0f;
@@ -17,15 +20,45 @@ public class MoneyCanvas : MonoBehaviour
     private void Awake()
     {
         fightGame = FindObjectOfType<FightGame>();
-
+        runningGame = FindObjectOfType<RunningGame>();
         // Check if the buttons were found and throw an error if not
         if (fightGameButton == null)
         {
-            fightGameButton = GameObject.Find("FightGameButton").GetComponent<Button>();
+            GameObject fightGameButtonObject = GameObject.Find("FightGameButton");
+            if (fightGameButtonObject != null)
+            {
+                fightGameButton = fightGameButtonObject.GetComponent<Button>();
+            }
+            else
+            {
+                Debug.LogError("FightGameButton not found in the scene.");
+            }
         }
+
         if (createNumberButton == null)
         {
-            createNumberButton = GameObject.Find("CreateNumberButton").GetComponent<Button>();
+            GameObject createNumberButtonObject = GameObject.Find("CreateNumberButton");
+            if (createNumberButtonObject != null)
+            {
+                createNumberButton = createNumberButtonObject.GetComponent<Button>();
+            }
+            else
+            {
+                Debug.LogError("CreateNumberButton not found in the scene.");
+            }
+        }
+
+        if (playAgainButton == null)
+        {
+            GameObject playAgainButtonObject = GameObject.Find("PlayAgainButton");
+            if (playAgainButtonObject != null)
+            {
+                playAgainButton = playAgainButtonObject.GetComponent<Button>();
+            }
+            else
+            {
+                Debug.LogError("PlayAgainButton not found in the scene.");
+            }
         }
     }
 
@@ -37,6 +70,7 @@ public class MoneyCanvas : MonoBehaviour
         // Deactivate the buttons initially
         fightGameButton.gameObject.SetActive(false);
         createNumberButton.gameObject.SetActive(false);
+        playAgainButton.gameObject.SetActive(false);
 
         UpdateMoneyText();
         UpdateCreateButtonText();
@@ -57,6 +91,12 @@ public class MoneyCanvas : MonoBehaviour
             // Activate the buttons
             fightGameButton.gameObject.SetActive(true);
             createNumberButton.gameObject.SetActive(true);
+            
+        }
+
+        if(runningGame.isDie == true)
+        {
+            playAgainButton.gameObject.SetActive(true);
         }
     }
 
@@ -91,5 +131,10 @@ public class MoneyCanvas : MonoBehaviour
         int cost = 100 * (fightGame.GetCount() + 1);
         string buttonText = (ScoreMoney >= cost) ? "Create Number (" + cost + ")" : "Not enough money";
         createNumberButton.GetComponentInChildren<Text>().text = buttonText;
+    }
+
+    public void PlayAgainButtonClick()
+    {
+        runningGame.ResetGame();
     }
 }

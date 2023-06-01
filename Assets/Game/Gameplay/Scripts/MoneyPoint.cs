@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MoneyPoint : MonoBehaviour
 {
-    private MoneyCanvas moneyCanvas;
+    private CanvasSetting canvasSetting;
     [SerializeField] private int moneyPoint = 100;
     private bool hasTriggered = false;
 
     private void Start()
     {
-        moneyCanvas = FindObjectOfType<MoneyCanvas>();
+        canvasSetting = FindObjectOfType<CanvasSetting>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,9 +19,9 @@ public class MoneyPoint : MonoBehaviour
         {
             hasTriggered = true;
             Destroy(gameObject);
-            moneyCanvas.ScoreMoney += moneyPoint;
-            moneyCanvas.MoneyPoint.text = moneyCanvas.ScoreMoney.ToString();
-            Debug.Log("Tiền: " + moneyCanvas.ScoreMoney);
+            canvasSetting.ScoreMoney += moneyPoint;
+            canvasSetting.MoneyPoint.text = canvasSetting.ScoreMoney.ToString();
+            Debug.Log("Tiền: " + canvasSetting.ScoreMoney);
         }
     }
 }
