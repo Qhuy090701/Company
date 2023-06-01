@@ -1,13 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
-public class CylindricalTrap : MonoBehaviour
+public class MonsterHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
-    [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private Transform itemSpawnPoint;
     [SerializeField] private TextMesh healthText;
 
 
@@ -25,17 +23,11 @@ public class CylindricalTrap : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
-            Instantiate(itemPrefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
-          
-            if(itemPrefab == null)
-            {
-                return;
-            }
         }
     }
 
     private void UpdateHealthText()
     {
-        healthText.text =  currentHealth.ToString();
+        healthText.text = currentHealth.ToString();
     }
 }

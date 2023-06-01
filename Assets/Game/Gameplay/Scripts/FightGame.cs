@@ -6,18 +6,16 @@ using UnityEngine.UI;
 public class FightGame : MonoBehaviour
 {
     public List<Transform> listPosition = new List<Transform>();
-    public PlayerFight playerFight;
     public GameObject numberCreate;
     public bool isFinish;
 
     private int currentPositionIndex = -1;
-    private FightState fightState;
+    public FightState fightState;
     private CanvasSetting canvasSetting;
     private int count;
 
-    public object SceneManager { get; internal set; }
-
-    private enum FightState
+    public bool isShooting;
+    public enum FightState
     {
         wait,
         move,
@@ -27,13 +25,11 @@ public class FightGame : MonoBehaviour
 
     private void Awake()
     {
-        playerFight = FindObjectOfType<PlayerFight>();
         canvasSetting = FindObjectOfType<CanvasSetting>();
     }
 
     private void Start()
     {
-        playerFight.enabled = true;
         fightState = FightState.wait;
         count = 0;
     }
@@ -43,6 +39,7 @@ public class FightGame : MonoBehaviour
         switch (fightState)
         {
             case FightState.wait:
+                DropAndDrag();
                 break;
             case FightState.move:
                 Fight();
@@ -62,6 +59,12 @@ public class FightGame : MonoBehaviour
             fightState = FightState.move;
         }
     }
+
+    public void DropAndDrag()
+    {
+
+    }
+
 
     public void CreateNumber()
     {

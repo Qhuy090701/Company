@@ -28,15 +28,21 @@ public class Bullets : MonoBehaviour
         {
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
         }
-        if (other.CompareTag(Constant.TAG_COLUMN))
+        else if (other.CompareTag(Constant.TAG_COLUMN))
         {
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
             CylindricalTrap hurtTrap = other.gameObject.GetComponent<CylindricalTrap>();
             hurtTrap.TakeDamage(damage);
         }
-        if(other.CompareTag(Constant.TAG_FINISH))
+        else if (other.CompareTag(Constant.TAG_FINISH))
         {
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET , gameObject);
+        }
+        else if (other.CompareTag(Constant.TAG_MONSTER))
+        {
+            ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
+            MonsterHealth monsterHealth = other.gameObject.GetComponent<MonsterHealth>();
+            monsterHealth.TakeDamage(damage);
         }
     }
 

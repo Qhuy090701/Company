@@ -17,11 +17,12 @@ TagManager:
   - Matrix
   - Money
   - Line
+  - Monster
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Number
   - Water
   - UI
   - 

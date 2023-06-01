@@ -41,7 +41,7 @@ public class CameraFollow : Singleton<CameraFollow>
 
                 //change player = matrix map
                 player = maxtrixMap.transform;
-                transform.position = new Vector3(-1, 37.31f, 352.2f);
+                transform.position = new Vector3(-1, 34.5f, 349.9f);
                 transform.rotation = Quaternion.Euler(20.3f, 0, 0);
 
 

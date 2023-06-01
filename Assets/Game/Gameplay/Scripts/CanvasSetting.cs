@@ -13,14 +13,17 @@ public class CanvasSetting : MonoBehaviour
     public Button playAgainButton;
     private FightGame fightGame;
     private RunningGame runningGame;
-
+    private PlayerFight playerFight;
     private bool isFinishReached = false;
+    private bool isFightting;
     private float finishReachedTime = 0f;
     private float activateButtonDelay = 2f;
+    public bool clickFightButton = false;
     private void Awake()
     {
         fightGame = FindObjectOfType<FightGame>();
         runningGame = FindObjectOfType<RunningGame>();
+        playerFight = FindObjectOfType<PlayerFight>();
         // Check if the buttons were found and throw an error if not
         if (fightGameButton == null)
         {
@@ -67,9 +70,12 @@ public class CanvasSetting : MonoBehaviour
     {
         ScoreMoney = 500;
 
-        // Deactivate the buttons initially
-        fightGameButton.gameObject.SetActive(false);
-        createNumberButton.gameObject.SetActive(false);
+        if(isFightting == false)
+        {
+            fightGameButton.gameObject.SetActive(false);
+            createNumberButton.gameObject.SetActive(false);
+        }
+
         playAgainButton.gameObject.SetActive(false);
 
         UpdateMoneyText();
@@ -88,10 +94,12 @@ public class CanvasSetting : MonoBehaviour
         // Check if the delay has passed since isFinish became true
         if (isFinishReached && Time.time - finishReachedTime >= activateButtonDelay)
         {
-            // Activate the buttons
-            fightGameButton.gameObject.SetActive(true);
-            createNumberButton.gameObject.SetActive(true);
-            
+            isFightting = true;
+            if(isFightting == true)
+            {
+                fightGameButton.gameObject.SetActive(true);
+                createNumberButton.gameObject.SetActive(true);
+            }      
         }
 
         if(runningGame.isDie == true)
@@ -137,4 +145,12 @@ public class CanvasSetting : MonoBehaviour
     {
         runningGame.ResetGame();
     }
+
+    public void FightButtonClick()
+    {
+        fightGame.isShooting = true;
+        isFightting = false;
+        clickFightButton = true;
+    }
+
 }

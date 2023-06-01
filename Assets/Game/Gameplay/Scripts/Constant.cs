@@ -14,4 +14,5 @@ public static class Constant
     public const string TAG_MATRIX = "Matrix";
     public const string TAG_MONEY =  "Money";
     public const string TAG_LINE =  "Line";
+    public const string TAG_MONSTER = "Monster";
 }

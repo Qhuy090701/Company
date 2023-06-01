@@ -70,7 +70,6 @@ public class PlayerRun : MonoBehaviour
                 break;
             case PlayerState.Moving:
                 UpdateMoveState();
-
                 break;
             case PlayerState.Jumping:
                 UpdateJumpState();
@@ -106,7 +105,7 @@ public class PlayerRun : MonoBehaviour
 
         if (isShooting == true)
         {
-            ShootBullet();
+            ShootBulletRun();
         }
 
         if (runningGame.isFinish == true)
@@ -119,7 +118,7 @@ public class PlayerRun : MonoBehaviour
     }
 
 
-    public void ShootBullet()
+    public void ShootBulletRun()
     {
         if (isShooting && Time.time - lastShotTime >= shottime && attackPoint != null)
         {
