@@ -33,6 +33,7 @@ public class Bullets : MonoBehaviour
             ObjectPool.Instance.ReturnToPool(Constant.TAG_BULLET, gameObject);
             CylindricalTrap hurtTrap = other.gameObject.GetComponent<CylindricalTrap>();
             hurtTrap.TakeDamage(damage);
+          
         }
         else if (other.CompareTag(Constant.TAG_FINISH))
         {
