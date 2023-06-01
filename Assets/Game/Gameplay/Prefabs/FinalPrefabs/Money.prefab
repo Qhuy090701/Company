@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d788998dab6a348a58352f6ad7a223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyPoint: 100
+  moneyPoint: 200
 --- !u!1001 &8821707293075541366
 PrefabInstance:
   m_ObjectHideFlags: 0
