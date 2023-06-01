@@ -126,7 +126,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7325287148471135337}
-  - {fileID: 7314897502740617967}
+  - {fileID: 3417368717421054032}
   - {fileID: 5610423892085830065}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -139,11 +139,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7314897502740617967}
+  - component: {fileID: 3417368717421054032}
   - component: {fileID: 7314897502740617954}
   - component: {fileID: 7314897502740617965}
   - component: {fileID: 7314897502740617964}
   - component: {fileID: 7314897502740617955}
+  - component: {fileID: 4287431181771496716}
   m_Layer: 0
   m_Name: Inside
   m_TagString: Gate
@@ -151,8 +152,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7314897502740617967
-Transform:
+--- !u!224 &3417368717421054032
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -166,6 +167,11 @@ Transform:
   m_Father: {fileID: 7314897502588975101}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &7314897502740617954
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -244,6 +250,14 @@ MonoBehaviour:
   createNumber0: {fileID: 9217885441206360667, guid: 6f2a3df3be7cd3f4cb096fa40cf03c66, type: 3}
   portalState: 2
   textName: {fileID: 2872092357847514107}
+--- !u!222 &4287431181771496716
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7314897502740617966}
+  m_CullTransparentMesh: 1
 --- !u!1001 &7071245858928741250
 PrefabInstance:
   m_ObjectHideFlags: 0

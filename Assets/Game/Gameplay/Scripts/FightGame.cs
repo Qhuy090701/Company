@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FightGame : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class FightGame : MonoBehaviour
 
     private int currentPositionIndex = -1;
     private FightState fightState;
+    private MoneyCanvas moneyCanvas;
+    private int count;
 
     private enum FightState
     {
@@ -23,11 +26,14 @@ public class FightGame : MonoBehaviour
     private void Awake()
     {
         playerFight = FindObjectOfType<PlayerFight>();
+        moneyCanvas = FindObjectOfType<MoneyCanvas>();
     }
+
     private void Start()
     {
         playerFight.enabled = true;
         fightState = FightState.wait;
+        count = 0;
     }
 
     private void Update()
@@ -37,10 +43,6 @@ public class FightGame : MonoBehaviour
             case FightState.wait:
                 break;
             case FightState.move:
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    CreateNumber();
-                }
                 Fight();
                 break;
             case FightState.shoot:
@@ -49,7 +51,6 @@ public class FightGame : MonoBehaviour
                 break;
         }
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -60,7 +61,7 @@ public class FightGame : MonoBehaviour
         }
     }
 
-    private void CreateNumber()
+    public void CreateNumber()
     {
         currentPositionIndex++; // Tăng chỉ số vị trí hiện tại lên mỗi lần tạo số mới
 
@@ -70,11 +71,17 @@ public class FightGame : MonoBehaviour
             currentPositionIndex = 0; // Quay lại vị trí đầu tiên
         }
 
+        bool isEmptyPosition = false; // Biến kiểm tra xem có vị trí trống không
+
         Transform position = listPosition[currentPositionIndex];
         PosMatrix posMatrix = position.GetComponent<PosMatrix>();
 
         // Kiểm tra nếu vị trí hiện tại đã có người chơi
         if (posMatrix != null && !posMatrix.isHavePlayer)
+        {
+            isEmptyPosition = true;
+        }
+        else
         {
             // Tìm vị trí tiếp theo không có người chơi
             for (int i = currentPositionIndex + 1; i < listPosition.Count; i++)
@@ -85,18 +92,40 @@ public class FightGame : MonoBehaviour
                     position = listPosition[i];
                     posMatrix = nextPosMatrix;
                     currentPositionIndex = i; // Cập nhật chỉ số vị trí hiện tại
+                    isEmptyPosition = true;
                     break;
                 }
             }
         }
 
-        // Tạo số mới tại vị trí đã chọn
-        Instantiate(numberCreate, position.position, position.rotation);
-        posMatrix.isHavePlayer = true; // Đánh dấu vị trí đã có người chơi
+        if (!isEmptyPosition)
+        {
+            Debug.Log("Full"); // Hiển thị thông báo debug "Full" nếu tất cả các vị trí đã có người chơi
+            return;
+        }
+
+        int cost = 100 * (count + 1); // Tính toán chi phí dựa trên số lần đã tạo
+
+        if (moneyCanvas.ScoreMoney >= cost)
+        {
+            Instantiate(numberCreate, position.position, position.rotation);
+            posMatrix.isHavePlayer = true; // Đánh dấu vị trí đã có người chơi
+
+            count++;
+        }
+        else
+        {
+            Debug.Log("Not enough money"); // Hiển thị thông báo debug "Not enough money" nếu không đủ tiền
+        }
     }
 
     private void Fight()
     {
 
+    }
+
+    public int GetCount()
+    {
+        return count;
     }
 }

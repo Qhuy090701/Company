@@ -49,7 +49,7 @@ public class RunningGame : MonoBehaviour
 
     private void Update()
     {
-        CheckCount();
+        UpdateCheckCount();
         switch (currentState)
         {
             case PlayerControllerState.StartGame:
@@ -60,7 +60,7 @@ public class RunningGame : MonoBehaviour
                 break;
             case PlayerControllerState.RunGame:
                 TouchMove();
-                Move();
+                UpdateMove();
                 if (isFinish)
                 {
                     currentState = PlayerControllerState.EndGame;
@@ -82,7 +82,7 @@ public class RunningGame : MonoBehaviour
         }
     }
 
-    private void Move()
+    private void UpdateMove()
     {
         transform.position += Vector3.forward * speedTouch * Time.deltaTime;
     }
@@ -153,7 +153,7 @@ public class RunningGame : MonoBehaviour
         }
     }
 
-    private void CheckCount()
+    private void UpdateCheckCount()
     {
         count = 0;
         for (int i = 0; i < parent.transform.childCount; i++)

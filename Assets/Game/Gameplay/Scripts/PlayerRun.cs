@@ -316,7 +316,7 @@ public class PlayerRun : MonoBehaviour
         {
             Transform child = runningGame.parent.transform.GetChild(i);
             Vector3 parentPos = runningGame.parent.transform.position;
-            float newX = parentPos.x + i * objectSpacing*2;
+            float newX = (float)(parentPos.x + i * objectSpacing * 1.5);
             Vector3 newPos = new Vector3(newX, parentPos.y, parentPos.z);
             child.position = newPos;
         }
