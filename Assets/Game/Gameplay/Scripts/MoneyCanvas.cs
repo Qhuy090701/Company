@@ -14,11 +14,21 @@ public class MoneyCanvas : MonoBehaviour
     private bool isFinishReached = false;
     private float finishReachedTime = 0f;
     private float activateButtonDelay = 2f;
-
     private void Awake()
     {
         fightGame = FindObjectOfType<FightGame>();
+
+        // Check if the buttons were found and throw an error if not
+        if (fightGameButton == null)
+        {
+            fightGameButton = GameObject.Find("FightGameButton").GetComponent<Button>();
+        }
+        if (createNumberButton == null)
+        {
+            createNumberButton = GameObject.Find("CreateNumberButton").GetComponent<Button>();
+        }
     }
+
 
     private void Start()
     {
