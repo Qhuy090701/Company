@@ -5,11 +5,13 @@ public class Portal : MonoBehaviour
     [SerializeField] private GameObject createNumber0;
     [SerializeField] private PortalState portalState;
     private PlayerRun playerRun;
+    private RunningGame runningGame;
 
     [SerializeField] private TextMesh textName;
 
     private void Start()
     {
+        runningGame = FindObjectOfType<RunningGame>();
         playerRun = GetComponent<PlayerRun>();
         textName.text = portalState.ToString();
     }
@@ -56,7 +58,7 @@ public class Portal : MonoBehaviour
                         break;
                     case PortalState.CreateBullet:
                         Destroy(gameObject);
-                        player.shootType = true;
+                        runningGame.shootType = true;
                         break;
                 }
             }

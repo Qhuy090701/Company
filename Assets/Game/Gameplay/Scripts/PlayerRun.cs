@@ -26,7 +26,7 @@ public class PlayerRun : MonoBehaviour
     private float lastShotTime;
     private bool hasJumped;
     public bool isShooting;
-    public bool shootType;
+    //public bool shootType;
 
     private void Awake()
     {
@@ -127,7 +127,7 @@ public class PlayerRun : MonoBehaviour
             bulletController?.SetBulletProperties(bulletData);
             bullet.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.up * 0.5f) * (speedBullets * 10);
             lastShotTime = Time.time;
-            if (shootType == true)
+            if (runningGame.shootType == true)
             {
                 CreateBullets();
             }
@@ -167,7 +167,7 @@ public class PlayerRun : MonoBehaviour
 
                     GameObject mergedObj = Instantiate(mergedObject, merge.transform.position, Quaternion.identity);
                     mergedObj.transform.SetParent(runningGame.parent.gameObject.transform);
-                    mergedObj.GetComponent<PlayerRun>().shootType = merge.shootType;
+                    mergedObj.GetComponent<PlayerRun>().runningGame.shootType = merge.runningGame.shootType;
                     Destroy(gameObject);
                     Destroy(collision.gameObject);
 
@@ -185,9 +185,9 @@ public class PlayerRun : MonoBehaviour
                 other.gameObject.transform.parent = runningGame.parent.transform;
                 other.gameObject.tag = Constant.TAG_PLAYER;
 
-                if (shootType == true)
+                if (runningGame.shootType == true)
                 {
-                    other.gameObject.GetComponent<PlayerRun>().shootType = true;
+                    other.gameObject.GetComponent<PlayerRun>().runningGame.shootType = true;
                 }
             }
 
@@ -230,7 +230,7 @@ public class PlayerRun : MonoBehaviour
         backObj.transform.SetParent(runningGame.parent.transform);
         backObj.gameObject.tag = Constant.TAG_PLAYER;
         currentState = PlayerState.Moving;
-        backObj.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
+        backObj.GetComponent<PlayerRun>().runningGame.shootType = runningGame.shootType; // Set shootType to true
     }
 
     public void LevelUpNumber()
@@ -246,7 +246,7 @@ public class PlayerRun : MonoBehaviour
         upObject.transform.SetParent(runningGame.parent.transform);
         upObject.gameObject.tag = Constant.TAG_PLAYER;
         currentState = PlayerState.Moving;
-        upObject.GetComponent<PlayerRun>().shootType = shootType; // Set shootType to true
+        upObject.GetComponent<PlayerRun>().runningGame.shootType = runningGame.shootType; // Set shootType to true
     }
 
 

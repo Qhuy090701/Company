@@ -24,7 +24,7 @@ public class RunningGame : MonoBehaviour
     public float canvasWidth = 1080;
     public float canvasHeight;
     public bool istouch = true;
-
+    public bool shootType;
     private enum PlayerControllerState
     {
         StartGame,
