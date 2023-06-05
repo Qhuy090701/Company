@@ -45,8 +45,8 @@ GameObject:
   - component: {fileID: 9217885441206360662}
   - component: {fileID: 1966317849424017777}
   m_Layer: 3
-  m_Name: Number_0_Fight
-  m_TagString: Player
+  m_Name: NumberStart
+  m_TagString: Number
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9217885441206360667}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24cf62b10f4375540b976e84263b1182, type: 3}
   m_Name: 
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5303c7650c8da144c80031edf03f5ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergedObject: {fileID: 0}
-  playerFightState: 2
+  mergedObject: {fileID: 4852251156017808800, guid: 6ea564349fc9cb1438d889da9ee4c466, type: 3}
+  playerFightState: 0
   moveSpeed: 15
   shottime: 0.1
   speedBullets: 40
