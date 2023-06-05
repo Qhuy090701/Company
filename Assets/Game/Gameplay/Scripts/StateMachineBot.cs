@@ -82,6 +82,7 @@ public class StateMachineBot : MonoBehaviour
             runningGame.isDie = true;
             if (runningGame.isDie == true)
             {
+                botstate = BotState.die;
                 canvasSetting.playAgainButton.gameObject.SetActive(true);
             }
         }

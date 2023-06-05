@@ -68,7 +68,7 @@ public class CanvasSetting : MonoBehaviour
 
     private void Start()
     {
-        ScoreMoney = 500;
+        ScoreMoney = 300;
 
         if(isFightting == false)
         {

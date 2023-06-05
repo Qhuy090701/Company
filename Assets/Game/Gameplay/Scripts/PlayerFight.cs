@@ -17,6 +17,7 @@ public class PlayerFight : MonoBehaviour
     private bool isMoving = false; // Trạng thái di chuyển của player
     private bool reachedTarget = false; // Kiểm tra xem đã đạt đến vị trí chỉ định hay chưa
 
+    private RunningGame runningGame;
     private FightGame fightGame;
     private PlayerFight playerFight;
     private PlayerRun playerRun;
@@ -52,7 +53,7 @@ public class PlayerFight : MonoBehaviour
     private void Start()
     {
 
-        
+        runningGame = FindAnyObjectByType<RunningGame>();
         fightGame = FindObjectOfType<FightGame>();
         availablePositions = new List<Transform>(fightGame.listPosition);
         currentTarget = GetRandomPosition();
@@ -79,7 +80,14 @@ public class PlayerFight : MonoBehaviour
                 PlayerMove();
                 break;
             case PlayerFightState.StopMove:
-                ShootBulletFight();
+                if(runningGame.isDie == false)
+                {
+                    ShootBulletFight();
+                }
+                else
+                {
+                    return;
+                }
                 break;
             case PlayerFightState.EndGame:
                 // Logic khi kết thúc trò chơi

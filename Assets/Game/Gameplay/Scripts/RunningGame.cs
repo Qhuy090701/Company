@@ -41,7 +41,7 @@ public class RunningGame : MonoBehaviour
         numberStart = Instantiate(numberStart);   
         numberStart.transform.SetParent(parent.transform);
         numberStart.transform.localPosition = new Vector3(parent.transform.position.x, parent.transform.position.y, parent.transform.position.z);
-        gameObject.tag = Constant.TAG_PLAYER;
+        //gameObject.tag = Constant.TAG_PLAYER;
         // Lấy kích thước của Canvas
         Canvas canvas = FindObjectOfType<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();

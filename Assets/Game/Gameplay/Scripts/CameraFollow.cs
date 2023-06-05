@@ -23,7 +23,7 @@ public class CameraFollow : Singleton<CameraFollow>
     {
         if (player == null)
         {
-            player = GameObject.FindGameObjectWithTag(Constant.TAG_PLAYER).transform;
+            player = GameObject.FindGameObjectWithTag(Constant.TAG_PARENT).transform;
         }
         
         switch (cameraState)
